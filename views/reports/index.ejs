@@ -1,0 +1,127 @@
+<div class="reports-page">
+    <h1>Reportes y Estadísticas</h1>
+
+    <div class="reports-grid">
+        <div class="card">
+            <h3>Estado de Equipos</h3>
+            <div class="chart-container">
+                <canvas id="equipmentStatusChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Reparaciones por Mes</h3>
+            <div class="chart-container">
+                <canvas id="repairsMonthlyChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Asignaciones por Departamento</h3>
+            <div class="chart-container">
+                <canvas id="assignmentsDeptChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Tiempo Promedio de Reparación</h3>
+            <div class="chart-container">
+                <canvas id="repairTimeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Generar Reportes</h3>
+        <div class="report-options">
+            <div class="report-option">
+                <h4>Inventario de Equipos</h4>
+                <p>Reporte detallado del estado actual de todos los equipos</p>
+                <button class="btn btn-primary">Generar</button>
+            </div>
+
+            <div class="report-option">
+                <h4>Historial de Reparaciones</h4>
+                <p>Registro completo de reparaciones por período</p>
+                <button class="btn btn-primary">Generar</button>
+            </div>
+
+            <div class="report-option">
+                <h4>Asignaciones Actuales</h4>
+                <p>Lista de equipos asignados y sus usuarios</p>
+                <button class="btn btn-primary">Generar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Equipment Status Chart
+    new Chart(document.getElementById('equipmentStatusChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Activos', 'En Reparación', 'Disponibles', 'Dados de Baja'],
+            datasets: [{
+                data: [65, 15, 12, 8],
+                backgroundColor: ['#2563eb', '#dc2626', '#16a34a', '#6b7280']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    // Monthly Repairs Chart
+    new Chart(document.getElementById('repairsMonthlyChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Reparaciones',
+                data: [12, 19, 15, 8, 22, 14],
+                backgroundColor: '#2563eb'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    // Assignments by Department Chart
+    new Chart(document.getElementById('assignmentsDeptChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['IT', 'RRHH', 'Finanzas', 'Ventas', 'Operaciones'],
+            datasets: [{
+                data: [25, 15, 20, 18, 22],
+                backgroundColor: ['#2563eb', '#16a34a', '#dc2626', '#f59e0b', '#6366f1']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    // Average Repair Time Chart
+    new Chart(document.getElementById('repairTimeChart'), {
+        type: 'line',
+        data: {
+            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Días promedio',
+                data: [3.5, 4.2, 3.8, 3.2, 3.9, 3.5],
+                borderColor: '#2563eb',
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+});
+</script>

@@ -1,0 +1,70 @@
+<div class="equipment-page">
+    <div class="page-header">
+        <h1>Gestión de Equipos</h1>
+        <a href="/equipment/new" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nuevo Equipo
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="filters">
+            <input type="text" placeholder="Buscar equipo..." class="search-input">
+            <select class="filter-select">
+                <option value="">Tipo de Equipo</option>
+                <option value="laptop">Laptop</option>
+                <option value="desktop">Desktop</option>
+                <option value="printer">Impresora</option>
+            </select>
+            <select class="filter-select">
+                <option value="">Estado</option>
+                <option value="active">Activo</option>
+                <option value="repair">En Reparación</option>
+                <option value="inactive">Inactivo</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Modelo</th>
+                        <th>Serial</th>
+                        <th>Estado</th>
+                        <th>Usuario Asignado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EQ001</td>
+                        <td>Laptop</td>
+                        <td>HP EliteBook 840</td>
+                        <td>SN123456</td>
+                        <td>Activo</td>
+                        <td>María González</td>
+                        <td>
+                            <a href="/equipment/EQ001/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="/equipment/EQ001/history" class="btn-icon"><i class="fas fa-history"></i></a>
+                            <a href="/repairs/new?equipment=EQ001" class="btn-icon"><i class="fas fa-tools"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>EQ002</td>
+                        <td>Desktop</td>
+                        <td>Dell OptiPlex 7090</td>
+                        <td>SN789012</td>
+                        <td>En Reparación</td>
+                        <td>Carlos Ruiz</td>
+                        <td>
+                            <a href="/equipment/EQ002/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="/equipment/EQ002/history" class="btn-icon"><i class="fas fa-history"></i></a>
+                            <a href="/repairs/new?equipment=EQ002" class="btn-icon"><i class="fas fa-tools"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

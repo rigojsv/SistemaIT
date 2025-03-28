@@ -1,0 +1,82 @@
+<div class="repairs-page">
+    <div class="page-header">
+        <h1>Gestión de Reparaciones</h1>
+        <a href="/repairs/new" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nueva Reparación
+        </a>
+    </div>
+
+    <div class="status-cards">
+        <div class="card status-card">
+            <h3>Pendientes</h3>
+            <div class="status-number">5</div>
+        </div>
+        <div class="card status-card">
+            <h3>En Proceso</h3>
+            <div class="status-number">3</div>
+        </div>
+        <div class="card status-card">
+            <h3>Completadas</h3>
+            <div class="status-number">12</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="filters">
+            <input type="text" placeholder="Buscar reparación..." class="search-input">
+            <select class="filter-select">
+                <option value="">Estado</option>
+                <option value="pending">Pendiente</option>
+                <option value="in-progress">En Proceso</option>
+                <option value="completed">Completada</option>
+            </select>
+            <select class="filter-select">
+                <option value="">Técnico</option>
+                <option value="tech1">Juan Técnico</option>
+                <option value="tech2">Ana Técnico</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Equipo</th>
+                        <th>Problema</th>
+                        <th>Técnico</th>
+                        <th>Estado</th>
+                        <th>Fecha Inicio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>REP001</td>
+                        <td>Laptop HP EliteBook</td>
+                        <td>Falla en disco duro</td>
+                        <td>Juan Técnico</td>
+                        <td>En Proceso</td>
+                        <td>2024-01-15</td>
+                        <td>
+                            <a href="/repairs/REP001/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="/repairs/REP001" class="btn-icon"><i class="fas fa-clipboard-list"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>REP002</td>
+                        <td>Desktop Dell OptiPlex</td>
+                        <td>No enciende</td>
+                        <td>Ana Técnico</td>
+                        <td>Pendiente</td>
+                        <td>2024-01-18</td>
+                        <td>
+                            <a href="/repairs/REP002/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="/repairs/REP002" class="btn-icon"><i class="fas fa-clipboard-list"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

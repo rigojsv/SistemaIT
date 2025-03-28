@@ -1,0 +1,67 @@
+<div class="assignments-page">
+    <div class="page-header">
+        <h1>Gestión de Asignaciones</h1>
+        <a href="/assignments/new" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nueva Asignación
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="filters">
+            <input type="text" placeholder="Buscar asignación..." class="search-input">
+            <select class="filter-select">
+                <option value="">Departamento</option>
+                <option value="it">IT</option>
+                <option value="hr">RRHH</option>
+                <option value="finance">Finanzas</option>
+            </select>
+            <select class="filter-select">
+                <option value="">Tipo de Equipo</option>
+                <option value="laptop">Laptop</option>
+                <option value="desktop">Desktop</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Equipo</th>
+                        <th>Departamento</th>
+                        <th>Fecha Asignación</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ASG001</td>
+                        <td>María González</td>
+                        <td>Laptop HP EliteBook</td>
+                        <td>IT</td>
+                        <td>2024-01-10</td>
+                        <td>Activo</td>
+                        <td>
+                            <a href="/assignments/ASG001/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="/assignments/ASG001/history" class="btn-icon"><i class="fas fa-history"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ASG002</td>
+                        <td>Carlos Ruiz</td>
+                        <td>Desktop Dell OptiPlex</td>
+                        <td>RRHH</td>
+                        <td>2024-01-12</td>
+                        <td>Activo</td>
+                        <td>
+                            <a href="/assignments/ASG002/edit" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="/assignments/ASG002/history" class="btn-icon"><i class="fas fa-history"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

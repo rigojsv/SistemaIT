@@ -1,0 +1,123 @@
+<div class="repairs-page">
+    <div class="page-header">
+        <h1>Detalle de Reparación #REP001</h1>
+        <div class="header-actions">
+            <button class="btn btn-secondary">
+                <i class="fas fa-print"></i> Imprimir
+            </button>
+            <button class="btn btn-primary">
+                <i class="fas fa-edit"></i> Editar
+            </button>
+        </div>
+    </div>
+
+    <div class="repair-status-timeline">
+        <div class="timeline-item active">
+            <div class="status-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <div class="status-info">
+                <h4>Recibido</h4>
+                <p>15/01/2024 10:30</p>
+            </div>
+        </div>
+        <div class="timeline-item active">
+            <div class="status-icon">
+                <i class="fas fa-tools"></i>
+            </div>
+            <div class="status-info">
+                <h4>En Diagnóstico</h4>
+                <p>15/01/2024 14:15</p>
+            </div>
+        </div>
+        <div class="timeline-item current">
+            <div class="status-icon">
+                <i class="fas fa-wrench"></i>
+            </div>
+            <div class="status-info">
+                <h4>En Reparación</h4>
+                <p>16/01/2024 09:00</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="status-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="status-info">
+                <h4>Completado</h4>
+                <p>Pendiente</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="repair-details-grid">
+        <div class="card">
+            <h3>Información del Equipo</h3>
+            <div class="detail-group">
+                <label>ID Equipo:</label>
+                <span>EQ001</span>
+            </div>
+            <div class="detail-group">
+                <label>Tipo:</label>
+                <span>Laptop HP EliteBook</span>
+            </div>
+            <div class="detail-group">
+                <label>Serial:</label>
+                <span>SN123456</span>
+            </div>
+            <div class="detail-group">
+                <label>Usuario Asignado:</label>
+                <span>María González</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Detalles de la Reparación</h3>
+            <div class="detail-group">
+                <label>Problema Reportado:</label>
+                <p>Falla en disco duro. El equipo presenta lentitud y ruidos anormales.</p>
+            </div>
+            <div class="detail-group">
+                <label>Técnico Asignado:</label>
+                <span>Juan Técnico</span>
+            </div>
+            <div class="detail-group">
+                <label>Prioridad:</label>
+                <span class="badge badge-high">Alta</span>
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <h3>Bitácora de Reparación</h3>
+            <div class="repair-log">
+                <div class="log-entry">
+                    <div class="log-time">16/01/2024 09:00</div>
+                    <div class="log-content">
+                        <strong>Diagnóstico completado:</strong>
+                        <p>Se confirma falla en el disco duro. Se requiere reemplazo.</p>
+                    </div>
+                </div>
+                <div class="log-entry">
+                    <div class="log-time">15/01/2024 14:15</div>
+                    <div class="log-content">
+                        <strong>Inicio de diagnóstico</strong>
+                        <p>Se comienza evaluación del disco duro y pruebas de rendimiento.</p>
+                    </div>
+                </div>
+                <div class="log-entry">
+                    <div class="log-time">15/01/2024 10:30</div>
+                    <div class="log-content">
+                        <strong>Recepción de equipo</strong>
+                        <p>Equipo recibido para revisión por problemas de rendimiento.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="add-log-entry">
+                <h4>Agregar Entrada</h4>
+                <textarea class="form-control" rows="3" placeholder="Descripción de la actividad realizada..."></textarea>
+                <button class="btn btn-primary">Agregar Entrada</button>
+            </div>
+        </div>
+    </div>
+</div>
