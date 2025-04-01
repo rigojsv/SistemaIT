@@ -17,7 +17,7 @@ router.post('/login',
     function (req, res) {
     });
 
-router.get('/dashboard', validatesession, (req, res) => {
+router.get('/dashboard', (req, res) => {
     res.render('dashboard/index');
 });
 
