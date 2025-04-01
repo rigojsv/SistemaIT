@@ -1,0 +1,82 @@
+<div class="container mx-auto px-4 py-6">
+    <div class="page-header flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-semibold">Gestión de Equipos</h1>
+        <a href="/equipment/new" class="btn btn-primary flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            <i class="fas fa-plus mr-2"></i> Nuevo Equipo
+        </a>
+    </div>
+
+    <div class="card bg-white p-6 rounded-lg shadow-md">
+        <div class="filters flex space-x-4 mb-6">
+            <input type="text" placeholder="Buscar equipo..." class="search-input block w-full p-3 border border-gray-300 rounded-md">
+            <select class="filter-select block w-48 p-3 border border-gray-300 rounded-md">
+                <option value="">Tipo de Equipo</option>
+                <option value="laptop">Laptop</option>
+                <option value="desktop">Desktop</option>
+                <option value="printer">Impresora</option>
+            </select>
+            <select class="filter-select block w-48 p-3 border border-gray-300 rounded-md">
+                <option value="">Estado</option>
+                <option value="active">Activo</option>
+                <option value="repair">En Reparación</option>
+                <option value="inactive">Inactivo</option>
+            </select>
+        </div>
+
+        <div class="table-container overflow-x-auto">
+            <table class="min-w-full table-auto text-sm">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left">ID</th>
+                        <th class="px-4 py-2 text-left">Tipo</th>
+                        <th class="px-4 py-2 text-left">Modelo</th>
+                        <th class="px-4 py-2 text-left">Serial</th>
+                        <th class="px-4 py-2 text-left">Estado</th>
+                        <th class="px-4 py-2 text-left">Usuario Asignado</th>
+                        <th class="px-4 py-2 text-left">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b">
+                        <td class="px-4 py-2">EQ001</td>
+                        <td class="px-4 py-2">Laptop</td>
+                        <td class="px-4 py-2">HP EliteBook 840</td>
+                        <td class="px-4 py-2">SN123456</td>
+                        <td class="px-4 py-2">Activo</td>
+                        <td class="px-4 py-2">María González</td>
+                        <td class="px-4 py-2">
+                            <a href="/equipment/EQ001/edit" class="btn-icon text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="/equipment/EQ001/history" class="btn-icon text-gray-600 hover:text-gray-800 ml-4">
+                                <i class="fas fa-history"></i>
+                            </a>
+                            <a href="/repairs/new?equipment=EQ001" class="btn-icon text-green-600 hover:text-green-800 ml-4">
+                                <i class="fas fa-tools"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="border-b">
+                        <td class="px-4 py-2">EQ002</td>
+                        <td class="px-4 py-2">Desktop</td>
+                        <td class="px-4 py-2">Dell OptiPlex 7090</td>
+                        <td class="px-4 py-2">SN789012</td>
+                        <td class="px-4 py-2">En Reparación</td>
+                        <td class="px-4 py-2">Carlos Ruiz</td>
+                        <td class="px-4 py-2">
+                            <a href="/equipment/EQ002/edit" class="btn-icon text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="/equipment/EQ002/history" class="btn-icon text-gray-600 hover:text-gray-800 ml-4">
+                                <i class="fas fa-history"></i>
+                            </a>
+                            <a href="/repairs/new?equipment=EQ002" class="btn-icon text-green-600 hover:text-green-800 ml-4">
+                                <i class="fas fa-tools"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

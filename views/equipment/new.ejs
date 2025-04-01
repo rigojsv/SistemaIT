@@ -1,0 +1,60 @@
+<div class="container mx-auto px-4 py-6">
+    <div class="page-header mb-6">
+        <h1 class="text-3xl font-semibold">Nuevo Equipo</h1>
+    </div>
+
+    <div class="card bg-white p-6 rounded-lg shadow-md">
+        <form class="form-grid space-y-6">
+            <div class="form-group">
+                <label for="type" class="block text-sm font-medium text-gray-700">Tipo de Equipo</label>
+                <select id="type" class="form-control mt-2 block w-full p-3 border border-gray-300 rounded-md" required>
+                    <option value="">Seleccionar tipo...</option>
+                    <option value="laptop">Laptop</option>
+                    <option value="desktop">Desktop</option>
+                    <option value="printer">Impresora</option>
+                    <option value="monitor">Monitor</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="brand" class="block text-sm font-medium text-gray-700">Marca</label>
+                <input type="text" id="brand" class="form-control mt-2 block w-full p-3 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div class="form-group">
+                <label for="model" class="block text-sm font-medium text-gray-700">Modelo</label>
+                <input type="text" id="model" class="form-control mt-2 block w-full p-3 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div class="form-group">
+                <label for="serial" class="block text-sm font-medium text-gray-700">Número de Serie</label>
+                <input type="text" id="serial" class="form-control mt-2 block w-full p-3 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div class="form-group">
+                <label for="purchaseDate" class="block text-sm font-medium text-gray-700">Fecha de Compra</label>
+                <input type="date" id="purchaseDate" class="form-control mt-2 block w-full p-3 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div class="form-group">
+                <label for="warranty" class="block text-sm font-medium text-gray-700">Garantía (meses)</label>
+                <input type="number" id="warranty" class="form-control mt-2 block w-full p-3 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="specs" class="block text-sm font-medium text-gray-700">Especificaciones</label>
+                <textarea id="specs" class="form-control mt-2 block w-full p-3 border border-gray-300 rounded-md" rows="4"></textarea>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="notes" class="block text-sm font-medium text-gray-700">Notas Adicionales</label>
+                <textarea id="notes" class="form-control mt-2 block w-full p-3 border border-gray-300 rounded-md" rows="3"></textarea>
+            </div>
+
+            <div class="form-actions flex justify-between items-center mt-6">
+                <button type="button" class="btn btn-secondary bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600" onclick="history.back()">Cancelar</button>
+                <button type="submit" class="btn btn-primary bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Guardar Equipo</button>
+            </div>
+        </form>
+    </div>
+</div>

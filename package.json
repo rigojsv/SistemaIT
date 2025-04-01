@@ -1,0 +1,34 @@
+{
+  "name": "it-equipment-management",
+  "version": "1.0.0",
+  "description": "IT Equipment Management and Repair Tracking System",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "build:css": "postcss css/styles.css -o public/css/styles.css",
+    "watch:css": "postcss css/styles.css -o public/css/styles.css --watch"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "chart.js": "^4.4.1",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.1",
+    "moment": "^2.30.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.14.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.6",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.2",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^4.0.6"
+  }
+}
