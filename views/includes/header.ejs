@@ -1,6 +1,6 @@
 <header>
     <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
-        <div class="p-4 lg:px-5 lg:pl-3">
+        <div class="p-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start">
                     <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
@@ -16,7 +16,7 @@
                     </button>
                     <a href="/" class="flex items-center gap-2 text-blue-600 text-xl font-bold">
                         <i class="fas fa-laptop-medical text-4xl"></i>
-                        <span class="self-center text-xl font-semibold sm:text-3xl whitespace-nowra">Sistema IT</span>
+                        <span class="self-center text-xl font-bold sm:text-3xl whitespace-nowra">Sistema IT</span>
                     </a>
                 </div>
                 <div class="flex items-center">
@@ -34,7 +34,7 @@
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm"
                             id="dropdown-user">
                             <div class="px-4 py-3" role="none">
-                                <p class="text-sm text-gray-900 dark:text-white" role="none">
+                                <p class="text-sm text-gray-900" role="none">
                                     Neil Sims
                                 </p>
                                 <p class="text-sm font-medium text-gray-900 truncate" role="none">
@@ -43,7 +43,7 @@
                             </div>
                             <ul class="py-1" role="none">
                                 <li>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
+                                    <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                                         role="menuitem">Dashboard</a>
                                 </li>
                                 <li>
@@ -51,11 +51,7 @@
                                         role="menuitem">Settings</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                                        role="menuitem">Earnings</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
+                                    <a href="/signout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                                         role="menuitem">Sign out</a>
                                 </li>
                             </ul>
@@ -73,31 +69,31 @@
             <ul class="space-y-2 font-medium">
                 <li>
                     <a href="/dashboard" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
-                        <i class="fas fa-home text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+                        <i class="fas fa-home text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
                         <span class="ms-3">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="/equipment" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                        <i class="fas fa-laptop text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+                        <i class="fas fa-laptop text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Equipos</span>
                     </a>
                 </li>
                 <li>
                     <a href="/assignments" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                        <i class="fas fa-users text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+                        <i class="fas fa-users text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Asignaciones</span>
                     </a>
                 </li>
                 <li>
                     <a href="/repairs" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                        <i class="fas fa-tools text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+                        <i class="fas fa-tools text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Reparaciones</span>
                     </a>
                 </li>
                 <li>
                     <a href="/reports" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                        <i class="fas fa-chart-bar text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+                        <i class="fas fa-chart-bar text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Reportes</span>
                     </a>
                 </li>
@@ -105,3 +101,4 @@
         </div>
     </aside>
 </header>
+<script src="https://flowbite.com/docs/flowbite.min.js"></script>
