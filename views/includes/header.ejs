@@ -19,6 +19,7 @@
                         <span class="self-center text-xl font-bold sm:text-3xl whitespace-nowra">Sistema IT</span>
                     </a>
                 </div>
+                <% if (auth) { %>
                 <div class="flex items-center">
                     <div class="flex items-center ms-3">
                         <div>
@@ -26,8 +27,8 @@
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
                                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span class="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                <img class="w-10 h-10 rounded-full"
+                                    src="https://www.shutterstock.com/image-photo/portrait-adult-bald-african-man-260nw-2129958605.jpg"
                                     alt="user photo">
                             </button>
                         </div>
@@ -35,10 +36,10 @@
                             id="dropdown-user">
                             <div class="px-4 py-3" role="none">
                                 <p class="text-sm text-gray-900" role="none">
-                                    Neil Sims
+                                    <%= user.nombre %>
                                 </p>
                                 <p class="text-sm font-medium text-gray-900 truncate" role="none">
-                                    neil.sims@flowbite.com
+                                    <%= user.correo %>
                                 </p>
                             </div>
                             <ul class="py-1" role="none">
@@ -48,7 +49,7 @@
                                 </li>
                                 <li>
                                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                                        role="menuitem">Settings</a>
+                                        role="menuitem">Configuracion</a>
                                 </li>
                                 <li>
                                     <a href="/signout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
@@ -58,6 +59,7 @@
                         </div>
                     </div>
                 </div>
+                <% } %>
             </div>
         </div>
     </nav>
@@ -101,4 +103,4 @@
         </div>
     </aside>
 </header>
-<script src="https://flowbite.com/docs/flowbite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

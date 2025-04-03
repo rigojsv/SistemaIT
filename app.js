@@ -20,9 +20,10 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: true }
+  cookie: { secure: false }
 }));
-app.use(passport.authenticate('session'));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 
 // EJS setup
