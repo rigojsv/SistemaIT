@@ -29,6 +29,9 @@ app.use(flash());
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.set('layout', 'layouts/main');
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.json());
+
 
 // Routes
 app.use('/', require('./routes/index'));
