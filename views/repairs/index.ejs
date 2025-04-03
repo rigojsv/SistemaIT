@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4 py-6">
+<div class="container mx-auto px-4 py-6 mt-14 min-h-screen">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold">Gestión de Reparaciones</h1>
         <a href="/repairs/new" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
@@ -25,14 +25,14 @@
     <!-- Filters -->
     <div class="bg-white p-4 rounded-lg shadow mb-6">
         <div class="flex space-x-4 mb-4">
-            <input type="text" placeholder="Buscar reparación..." class="w-full border px-4 py-2 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <select class="w-1/3 border px-4 py-2 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="text" placeholder="Buscar reparación..." class="w-full border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select class="w-1/3 border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="">Estado</option>
                 <option value="pending">Pendiente</option>
                 <option value="in-progress">En Proceso</option>
                 <option value="completed">Completada</option>
             </select>
-            <select class="w-1/3 border px-4 py-2 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select class="w-1/3 border px-4 py-2 rounded-md border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="">Técnico</option>
                 <option value="tech1">Juan Técnico</option>
                 <option value="tech2">Ana Técnico</option>
@@ -43,9 +43,9 @@
     <!-- Repairs Table -->
     <div class="bg-white p-4 rounded-lg shadow">
         <div class="overflow-x-auto">
-            <table class="w-full table-auto border-collapse">
-                <thead>
-                    <tr class="border-b">
+            <table class="w-full table-auto border-collapse rounded-sm">
+                <thead class="bg-gray-100">
+                    <tr>
                         <th class="px-4 py-2 text-left text-gray-800 font-semibold">ID</th>
                         <th class="px-4 py-2 text-left text-gray-800 font-semibold">Equipo</th>
                         <th class="px-4 py-2 text-left text-gray-800 font-semibold">Problema</th>
@@ -56,12 +56,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-b">
+                    <tr class="border-b border-gray-200">
                         <td class="px-4 py-2">REP001</td>
                         <td class="px-4 py-2">Laptop HP EliteBook</td>
                         <td class="px-4 py-2">Falla en disco duro</td>
                         <td class="px-4 py-2">Juan Técnico</td>
-                        <td class="px-4 py-2 text-yellow-600">En Proceso</td>
+                        <td class="px-4 py-2 font-bold text-yellow-400">En Proceso</td>
                         <td class="px-4 py-2">2024-01-15</td>
                         <td class="px-4 py-2">
                             <a href="/repairs/REP001/edit" class="text-blue-600 hover:text-blue-800">
@@ -72,12 +72,12 @@
                             </a>
                         </td>
                     </tr>
-                    <tr class="border-b">
+                    <tr class="border-b border-gray-200">
                         <td class="px-4 py-2">REP002</td>
                         <td class="px-4 py-2">Desktop Dell OptiPlex</td>
                         <td class="px-4 py-2">No enciende</td>
                         <td class="px-4 py-2">Ana Técnico</td>
-                        <td class="px-4 py-2 text-gray-600">Pendiente</td>
+                        <td class="px-4 py-2 font-bold text-gray-400">Pendiente</td>
                         <td class="px-4 py-2">2024-01-18</td>
                         <td class="px-4 py-2">
                             <a href="/repairs/REP002/edit" class="text-blue-600 hover:text-blue-800">

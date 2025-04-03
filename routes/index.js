@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
 
 router.get('/login', (req, res) => {
     res.render('login/index', {
-        auth: req.isAuthenticated()
+        auth: req.isAuthenticated(),
+        user: req.user
     });
 })
 
@@ -22,7 +23,8 @@ router.post('/login',
 
 router.get('/register', ValidateSessionadmin, (req, res) => {
     res.render('register/index', {
-        auth: req.isAuthenticated()
+        auth: req.isAuthenticated(),
+        user: req.user
     });
 });
 
