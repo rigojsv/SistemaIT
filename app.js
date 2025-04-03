@@ -30,6 +30,7 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.set('layout', 'layouts/main');
 
+
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/equipment', require('./routes/equipment'));
