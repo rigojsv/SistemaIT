@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4 py-6">
+<div class="container mx-auto px-4 py-6 mt-14 min-h-screen">
     <div class="page-header flex justify-between items-center mb-6">
         <h1 class="text-3xl font-semibold">Gestión de Equipos</h1>
         <a href="/equipment/new" class="btn btn-primary flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
@@ -28,7 +28,7 @@
             </div>
         </form>
 
-        <div class="table-container overflow-x-auto">
+        <div class="table-container overflow-x-auto rounded-sm">
             <table class="min-w-full table-auto text-sm">
                 <thead class="bg-gray-100">
                     <tr>
@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                     <% equipos.forEach((equipo) => { %>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-200">
                             <td class="px-4 py-2"><%= equipo.id_equipo %></td>
                             <td class="px-4 py-2"><%= equipo.tipo %></td>
                             <td class="px-4 py-2"><%= equipo.marca %></td>
@@ -53,14 +53,14 @@
                             <td class="px-4 py-2"><%= equipo.estado %></td>
                             <td class="px-4 py-2"><%= equipo.usuario_asignado || 'N/A' %></td>
                             <td class="px-4 py-2">
-                                <a href="/equipment/<%= equipo.id_equipo %>/edit" class="btn-icon text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-edit"></i>
+                                <a href="/equipment/<%= equipo.id_equipo %>/edit" class="btn-icon text-blue-400 hover:text-blue-800">
+                                    <i class="fas fa-edit text-xl"></i>
                                 </a>
-                                <a href="/equipment/<%= equipo.id_equipo %>/history" class="btn-icon text-gray-600 hover:text-gray-800 ml-4">
-                                    <i class="fas fa-history"></i>
+                                <a href="/equipment/<%= equipo.id_equipo %>/history" class="btn-icon text-gray-400 hover:text-gray-800 ml-4">
+                                    <i class="fas fa-history text-xl"></i>
                                 </a>
-                                <a href="/repairs/new?equipment=<%= equipo.id_equipo %>" class="btn-icon text-green-600 hover:text-green-800 ml-4">
-                                    <i class="fas fa-tools"></i>
+                                <a href="/repairs/new?equipment=<%= equipo.id_equipo %>" class="btn-icon text-green-500 hover:text-green-800 ml-4">
+                                    <i class="fas fa-tools text-xl"></i>
                                 </a>
                             </td>
                         </tr>
