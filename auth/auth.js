@@ -13,7 +13,7 @@ function ValidateSessionadmin(req, res, next) {
         return next();
         }
     }
-    req.flash('error_msg', 'Not authorized')
+    req.flash('Error', 'No autorizado.');
     res.redirect('/');
 }
 
@@ -23,7 +23,7 @@ function ValidateSessiontec(req, res, next) {
         return next();
         }
     }
-    req.flash('error_msg', 'Not authorized')
+    req.flash('Error', 'No autorizado.');
     res.redirect('/');
 }
 
