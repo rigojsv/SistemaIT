@@ -18,7 +18,7 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login',
-    passport.authenticate('local',{ successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: true }),
+    passport.authenticate('local', { successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: true }),
     function (req, res) {
     });
 
@@ -30,7 +30,7 @@ router.get('/register', ValidateSessionadmin, (req, res) => {
 });
 
 router.post('/register', ValidateSessionadmin, (req, res) => {
-    const {name, email, role, password} = req.body;
+    const { name, email, role, password } = req.body;
     if (!name || !email || !role || !password) {
         req.flash('error', 'No puedes dejar campos vacios');
         res.redirect('/register');
@@ -57,11 +57,11 @@ router.get('/config', validatesession, (req, res) => {
 });
 
 router.post('/config', validatesession, (req, res) => {
-    const {name, email, password, newpassword} = req.body; 
+    const { name, email, password, newpassword } = req.body;
     if (!name || !email || !password || !newpassword) {
         req.flash('error', 'No puedes dejar campos vacios');
         res.redirect('/config');
-    } else { 
+    } else {
         conn.query('SELECT * FROM usuarios WHERE id_usuario = ?', [req.user.id_usuario], (err, user) => {
             if (err) {
                 console.log(err);
@@ -72,23 +72,27 @@ router.post('/config', validatesession, (req, res) => {
                 req.flash('error', 'Usuario no encontrado');
                 res.redirect('/config');
             }
-            const hashedPassword = bcrypt.hashSync(password, 12);
-            if (hashedPassword !== user[0].contraseña) {
-                req.flash('error', 'La contraseña actual es incorrecta');
-                res.redirect('/config');
-            } else {
-                const newHashedPassword = bcrypt.hashSync(newpassword, 12);
-                conn.query('UPDATE usuarios SET nombre = ?, correo = ?, contraseña = ? WHERE id_usuario = ?', [name, email, newHashedPassword, req.user.id_usuario], (err, result) => {
-                    if (err) {
-                        console.log(err);
-                        req.flash('error', 'Error al actualizar el usuario');
-                        res.redirect('/config');
-                    }else {
-                    req.flash('success', 'Usuario actualizado correctamente');
+
+            bcrypt.compare(password, user[0].contraseña, (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else if (!result) {
+                    req.flash('error', 'La contraseña actual es incorrecta');
                     res.redirect('/config');
-                    }
-                });
-            }
+                } else {
+                    const newHashedPassword = bcrypt.hashSync(newpassword, 12);
+                    conn.query('UPDATE usuarios SET nombre = ?, correo = ?, contraseña = ? WHERE id_usuario = ?', [name, email, newHashedPassword, req.user.id_usuario], (err, result) => {
+                        if (err) {
+                            console.log(err);
+                            req.flash('error', 'Error al actualizar el usuario');
+                            res.redirect('/config');
+                        } else {
+                            req.flash('success', 'Usuario actualizado correctamente');
+                            res.redirect('/config');
+                        }
+                    });
+                }
+            });
         });
     }
 });
