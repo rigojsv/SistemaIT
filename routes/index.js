@@ -25,7 +25,8 @@ router.post('/login',
 router.get('/register', ValidateSessionadmin, (req, res) => {
     res.render('register/index', {
         auth: req.isAuthenticated(),
-        user: req.user
+        user: req.user,
+        messages: req.flash()
     });
 });
 
