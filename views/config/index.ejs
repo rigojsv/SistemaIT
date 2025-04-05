@@ -1,0 +1,120 @@
+<div class="container mx-auto px-4 py-6 mt-14 min-h-screen">
+    <div class="page-header mb-6">
+        <h1 class="text-4xl font-semibold">Configuracion</h1>
+    </div>
+    <% if (messages.error && messages.error.length> 0) { %>
+        <% messages.error.forEach(function(message) { %>
+            <div id="alert-border-2" class="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50"
+                role="alert">
+                <i class="fa-solid fa-circle-info"></i>
+                <div class="ms-3 text-sm font-medium">
+                    <%= message %>
+                </div>
+                <button type="button"
+                    class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8"
+                    data-dismiss-target="#alert-border-2" aria-label="Close">
+                    <span class="sr-only">Dismiss</span>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <% }) %>
+                <% } else if (messages.success && messages.success.length> 0) { %>
+                    <% messages.success.forEach(function(message) { %>
+                        <div id="alert-border-3"
+                            class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50"
+                            role="alert">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <div class="ms-3 text-sm font-medium">
+                                <%= message %>
+                            </div>
+                            <button type="button"
+                                class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8"
+                                data-dismiss-target="#alert-border-3" aria-label="Close">
+                                <span class="sr-only">Dismiss</span>
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <% }) %>
+                            <% } %>
+                                <form class="form-grid grid grid-cols-1 sm:grid-cols-2 gap-6" action="/config"
+                                    method="POST">
+                                    <div class="card bg-white p-6 rounded-lg shadow-md col-span-2 md:col-span-1">
+                                        <div class="page-header mb-6">
+                                            <h2 class="text-2xl font-semibold">Informacion</h2>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name"
+                                                class="block text-sm font-medium text-gray-700">Nombre</label>
+                                            <input type="name" name="name" id="name" value="<%= user.nombre %>" required
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email" class="block text-sm font-medium text-gray-700">Correo
+                                                Electronico</label>
+                                            <input type="email" id="email" name="email" value="<%= user.email %>"
+                                                required
+                                                class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                                required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="role"
+                                                class="block text-sm font-medium text-gray-700">Rol</label>
+                                            <select id="role" name="role"
+                                                class="form-control w-full p-2 border text-gray-400 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                                disabled>
+                                                <option value="" selected disabled>Seleccionar</option>
+                                                <option value="admin" <%=user.rol==="admin" ? 'selected' : '' %>
+                                                    >Administrador</option>
+                                                <option value="tecnico" <%=user.rol==="tecnico" ? 'selected' : '' %>
+                                                    >Tecnico</option>
+                                                <option value="user" <%=user.rol==="user" ? 'selected' : '' %>>Usuario
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="card bg-white p-6 rounded-lg shadow-md col-span-2 md:col-span-1">
+                                        <div class="page-header mb-6">
+                                            <h2 class="text-2xl font-semibold">Contraseña</h2>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="newpassword"
+                                                class="block text-sm font-medium text-gray-700">Nueva
+                                                Contraseña</label>
+                                            <input type="password" id="newpassword" name="newpassword" required
+                                                class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                                required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="password"
+                                                class="block text-sm font-medium text-gray-700">Contraseña
+                                                Actual</label>
+                                            <input type="password" name="password" id="password"
+                                                autocomplete="current-password" required
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="confirm-password"
+                                                class="block text-sm font-medium text-gray-700">Confirmar
+                                                Contraseña</label>
+                                            <input id="confirm-password"
+                                                class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                                rows="3">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions flex justify-between items-center mt-6 col-span-2">
+                                        <button type="button"
+                                            class="btn btn-secondary bg-gray-400 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600"
+                                            onclick="history.back()">Cancelar</button>
+                                        <button type="submit"
+                                            class="btn btn-primary bg-blue-600 text-white px-6 py-2 rounded-md shadow hover:bg-blue-700">Guardar
+                                            Cambios</button>
+                                    </div>
+                                </form>
+</div>
+</div>

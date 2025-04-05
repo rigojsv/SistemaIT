@@ -9,21 +9,21 @@ function validatesession(req, res, next) {
 
 function ValidateSessionadmin(req, res, next) {
     if (req.isAuthenticated()) {
-        if(req.user.role == 'admin'){
+        if(req.user.rol == 'admin'){
         return next();
         }
     }
-    req.flash('error_msg', 'Not authorized')
+    req.flash('Error', 'No autorizado.');
     res.redirect('/');
 }
 
 function ValidateSessiontec(req, res, next) {
     if (req.isAuthenticated()) {
-        if(req.user.role == 'technician'){
+        if(req.user.rol == 'tecnico'){
         return next();
         }
     }
-    req.flash('error_msg', 'Not authorized')
+    req.flash('Error', 'No autorizado.');
     res.redirect('/');
 }
 

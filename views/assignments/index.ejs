@@ -1,30 +1,37 @@
-<div class="container mx-auto px-4 py-6">
+<div class="container mx-auto px-4 py-6 mt-14 min-h-screen">
     <div class="page-header flex justify-between items-center mb-6">
         <h1 class="text-4xl font-semibold">Gestión de Asignaciones</h1>
-        <a href="/assignments/new" class="btn btn-primary inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700">
+        <a href="/assignments/new"
+            class="btn btn-primary inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700">
             <i class="fas fa-plus mr-2"></i> Nueva Asignación
         </a>
     </div>
 
     <div class="card bg-white p-6 rounded-lg shadow-md mb-6">
-        <div class="filters flex flex-wrap gap-4 mb-6">
-            <input type="text" placeholder="Buscar asignación..." class="search-input p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" />
-            
-            <select class="filter-select p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-                <option value="">Departamento</option>
-                <option value="it">IT</option>
-                <option value="hr">RRHH</option>
-                <option value="finance">Finanzas</option>
-            </select>
-            
-            <select class="filter-select p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-                <option value="">Tipo de Equipo</option>
-                <option value="laptop">Laptop</option>
-                <option value="desktop">Desktop</option>
-            </select>
-        </div>
+        <form method="GET" action="/assignments">
+            <div class="filters flex flex-wrap gap-4 mb-6">
+                <input type="text" placeholder="Buscar asignación..."
+                    class="search-input w-full md:w-auto p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" />
+                <select
+                    class="filter-select w-full md:w-auto p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    <option value="">Departamento</option>
+                    <option value="it">IT</option>
+                    <option value="hr">RRHH</option>
+                    <option value="finance">Finanzas</option>
+                </select>
 
-        <div class="table-container overflow-x-auto">
+                <select
+                    class="filter-select p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    <option value="">Tipo de Equipo</option>
+                    <option value="laptop">Laptop</option>
+                    <option value="desktop">Desktop</option>
+                </select>
+                <button type="submit" class="btn btn-primary bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                    Filtrar
+                </button>
+            </div>
+        </form>
+        <div class="table-container overflow-x-auto rounded-sm">
             <table class="min-w-full table-auto text-sm border-collapse">
                 <thead class="bg-gray-100">
                     <tr>
@@ -38,35 +45,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-b">
+                    <tr class="border-b border-gray-200">
                         <td class="px-4 py-2">ASG001</td>
                         <td class="px-4 py-2">María González</td>
                         <td class="px-4 py-2">Laptop HP EliteBook</td>
                         <td class="px-4 py-2">IT</td>
                         <td class="px-4 py-2">2024-01-10</td>
-                        <td class="px-4 py-2 text-green-600">Activo</td>
+                        <td class="px-4 py-2 font-bold text-green-500">Activo</td>
                         <td class="px-4 py-2">
-                            <a href="/assignments/ASG001/edit" class="btn-icon text-blue-600 hover:text-blue-800">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="/assignments/ASG001/history" class="btn-icon text-gray-600 hover:text-gray-800 ml-4">
-                                <i class="fas fa-history"></i>
-                            </a>
+                            <div class="flex items-center">
+                                <a href="/assignments/ASG001/edit" class="btn-icon text-blue-400 hover:text-blue-800">
+                                    <i class="fas fa-edit text-xl"></i>
+                                </a>
+                                <a href="/assignments/ASG001/history"
+                                    class="btn-icon text-gray-400 hover:text-gray-800 ml-4">
+                                    <i class="fas fa-history text-xl "></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
-                    <tr class="border-b">
+                    <tr class="border-b border-gray-200">
                         <td class="px-4 py-2">ASG002</td>
                         <td class="px-4 py-2">Carlos Ruiz</td>
                         <td class="px-4 py-2">Desktop Dell OptiPlex</td>
                         <td class="px-4 py-2">RRHH</td>
                         <td class="px-4 py-2">2024-01-12</td>
-                        <td class="px-4 py-2 text-green-600">Activo</td>
+                        <td class="px-4 py-2 font-bold text-green-500">Activo</td>
                         <td class="px-4 py-2">
-                            <a href="/assignments/ASG002/edit" class="btn-icon text-blue-600 hover:text-blue-800">
-                                <i class="fas fa-edit"></i>
+                            <a href="/assignments/ASG002/edit" class="btn-icon text-blue-400 hover:text-blue-800">
+                                <i class="fas fa-edit text-xl"></i>
                             </a>
-                            <a href="/assignments/ASG002/history" class="btn-icon text-gray-600 hover:text-gray-800 ml-4">
-                                <i class="fas fa-history"></i>
+                            <a href="/assignments/ASG002/history"
+                                class="btn-icon text-gray-400 hover:text-gray-800 ml-4">
+                                <i class="fas fa-history text-xl"></i>
                             </a>
                         </td>
                     </tr>
