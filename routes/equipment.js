@@ -36,7 +36,7 @@ router.get('/', ValidateSessionadmin, (req, res) => {
     db.query(query, params, (err, results) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Error al obtener los equipos');
+            return req.flash('error', 'Error al obtener los equipos');
         }
 
         res.render('equipment/index', {
@@ -45,7 +45,8 @@ router.get('/', ValidateSessionadmin, (req, res) => {
             type,
             state,
             auth: req.isAuthenticated(),
-            user: req.user
+            user: req.user,
+            messages: req.flash()
         });
     });
 });
@@ -53,7 +54,8 @@ router.get('/', ValidateSessionadmin, (req, res) => {
 router.get('/new', ValidateSessionadmin, (req, res) => {
     res.render('equipment/new', {
         auth: req.isAuthenticated(),
-        user: req.user
+        user: req.user,
+        mensages: req.flash()
     });
 });
 
@@ -63,7 +65,8 @@ router.post('/new', ValidateSessionadmin, (req, res) => {
     const { type, brand, model, serial, purchaseDate } = req.body;
 
     if (!type || !brand || !model || !serial || !purchaseDate) {
-        return res.status(400).send('Todos los campos son obligatorios');
+        req.flash('error', 'Todos los campos son obligatorios');
+        return res.redirect('/equipment/new');
     }
 
     const query = 'INSERT INTO equipos (tipo, marca, modelo, serie, fecha_adquisicion) VALUES (?, ?, ?, ?, ?)';
@@ -74,35 +77,44 @@ router.post('/new', ValidateSessionadmin, (req, res) => {
         (err, results) => {
             if (err) {
                 console.error(err);
-                return res.status(500).send('Error al guardar el equipo');
+                return req.flash('error', 'Error al guardar el equipo');
             }
-            res.redirect('/equipment');
+            res.redirect('/equipment/new');
         }
     );
 });
 
-router.get('/:id_equipo/edit', (req, res) => {
+router.get('/:id_equipo/edit', ValidateSessionadmin, (req, res) => {
     const { id_equipo } = req.params;
     const query = 'SELECT * FROM equipos WHERE id_equipo = ?';
     db.query(query, [id_equipo], (err, results) => {
-        if (err) return res.status(500).send('Error al obtener el equipo');
-        if (results.length === 0) return res.status(404).send('Equipo no encontrado');
+        if (err) {
+            console.error(err);
+            req.flash('error', 'Error al obtener el equipo');
+            return res.redirect('/equipment');
+        }
+        if (results.length === 0) {
+            req.flash('error', 'Equipo no encontrado');
+            return res.redirect('/equipment');
+        }
         const equipo = results[0];
         res.render('equipment/edit', { 
             equipo, 
             auth: req.isAuthenticated(), 
-            user: req.user 
+            user: req.user,
+            messages: req.flash()
         });
     });
 });
 
 
-router.post('/:id_equipo/edit', (req, res) => {
+router.post('/:id_equipo/edit', ValidateSessionadmin, (req, res) => {
     const { id_equipo } = req.params;
     const { tipo, marca, modelo, serie, fecha_adquisicion } = req.body;
 
     if (!tipo || !marca || !modelo || !serie || !fecha_adquisicion) {
-        return res.status(400).send('Todos los campos son obligatorios');
+        req.flash('error', 'Todos los campos son obligatorios');
+        res.redirect(`/equipment/${id_equipo}/edit`);
     }
 
     const query = `
@@ -112,8 +124,13 @@ router.post('/:id_equipo/edit', (req, res) => {
     `;
 
     db.query(query, [tipo, marca, modelo, serie, fecha_adquisicion, id_equipo], (err) => {
-        if (err) return res.status(500).send('Error al actualizar el equipo');
+        if (err) { 
+        req.flash('error', 'Error al actualizar el equipo');
+         return res.redirect(`/equipment/${id_equipo}/edit`);
+        } else {
+        req.flash('success', 'Equipo actualizado correctamente');
         res.redirect('/equipment');
+        }
     });
 });
 

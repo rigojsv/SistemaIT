@@ -36,7 +36,8 @@ router.get('/', ValidateSessionadmin, async (req, res) => {
             tecnicos,
             estadoContador,
             auth: req.isAuthenticated(),
-            user: req.user
+            user: req.user,
+            messages: req.flash()
         });
 
     } catch (error) {
@@ -54,11 +55,13 @@ router.get('/new', ValidateSessionadmin, async (req, res) => {
             auth: req.isAuthenticated(),
             user: req.user,
             equipos,
-            tecnicos
+            tecnicos,
+            messages: req.flash()
         });
     } catch (err) {
         console.error(err);
-        res.status(500).send('Error al cargar el formulario');
+        req.flash('error', 'Error al cargar el formulario de nueva reparación');
+        res.redirect('/repairs');
     }
 });
 
@@ -74,7 +77,8 @@ router.post('/new', ValidateSessionadmin, async (req, res) => {
         res.redirect('/repairs');
     } catch (err) {
         console.error(err);
-        res.status(500).send('Error al guardar la solicitud');
+        req.flash('error', 'Error al guardar la solicitud de reparación');
+        res.redirect('/repairs/new');
     }
 });
 
@@ -95,19 +99,24 @@ router.get('/:id/edit', ValidateSessionadmin, async (req, res) => {
             SELECT id_usuario, nombre FROM usuarios WHERE rol = 'tecnico'
         `);
 
-        if (!repair) return res.status(404).send('Reparación no encontrada');
+        if (!repair) { 
+            req.flash('error', 'Reparación no encontrada');
+            return res.redirect('/repairs');
+        }
 
         res.render('repairs/edit', {
             repair,
             equipos,
             tecnicos,
             auth: req.isAuthenticated(),
-            user: req.user
+            user: req.user,
+            messages: req.flash()
         });
 
     } catch (err) {
         console.error(err);
-        res.status(500).send('Error al cargar la reparación');
+        req.flash('error', 'Error al cargar el formulario de edición de reparación');
+        res.redirect('/repairs');
     }
 });
 
@@ -126,7 +135,8 @@ router.post('/:id/edit', ValidateSessionadmin, async (req, res) => {
         res.redirect('/repairs');
     } catch (err) {
         console.error(err);
-        res.status(500).send('Error al actualizar la reparación');
+        req.flash('error', 'Error al actualizar la reparación');
+        res.redirect(`/repairs/${id}/edit`);
     }
 });
 
