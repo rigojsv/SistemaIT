@@ -1,67 +1,78 @@
-<div class="container mx-auto px-4 py-6 mt-14">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-semibold">Nueva Solicitud de Reparación</h1>
+<div class="container mx-auto px-4 py-6 mt-14 min-h-screen">
+    <div class="page-header flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-semibold">Nueva Solicitud de Reparación</h1>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow">
-        <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="card bg-white p-6 rounded-lg shadow-md">
+        <form method="POST" action="/repairs/new" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
             <!-- Equipo -->
-            <div class="form-group">
-                <label for="equipment" class="block text-sm font-semibold text-gray-700">Equipo</label>
-                <select id="equipment" class="w-full border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <div>
+                <label for="id_equipo" class="block text-sm font-semibold text-gray-700 mb-1">Equipo</label>
+                <select id="id_equipo" name="id_equipo"
+                    class="w-full border px-3 py-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
                     <option value="">Seleccionar equipo...</option>
-                    <option value="1">Laptop HP EliteBook (SN123456)</option>
-                    <option value="2">Desktop Dell OptiPlex (SN789012)</option>
+                    <% equipos.forEach(equipo => { %>
+                        <option value="<%= equipo.id_equipo %>">
+                            <%= equipo.tipo %> - <%= equipo.marca %> <%= equipo.modelo %> (<%= equipo.serie %>)
+                        </option>
+                    <% }); %>
                 </select>
             </div>
 
-            <!-- Reportado por -->
-            <div class="form-group">
-                <label for="reportedBy" class="block text-sm font-semibold text-gray-700">Reportado por</label>
-                <select id="reportedBy" class="w-full border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                    <option value="">Seleccionar usuario...</option>
-                    <option value="1">María González</option>
-                    <option value="2">Carlos Ruiz</option>
+            <!-- Técnico -->
+            <div>
+                <label for="id_tecnico" class="block text-sm font-semibold text-gray-700 mb-1">Técnico Asignado</label>
+                <select id="id_tecnico" name="id_tecnico"
+                    class="w-full border px-3 py-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    <option value="">Seleccionar técnico...</option>
+                    <% tecnicos.forEach(tecnico => { %>
+                        <option value="<%= tecnico.id_usuario %>"><%= tecnico.nombre %></option>
+                    <% }); %>
                 </select>
             </div>
 
             <!-- Prioridad -->
-            <div class="form-group">
-                <label for="priority" class="block text-sm font-semibold text-gray-700">Prioridad</label>
-                <select id="priority" class="w-full border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                    <option value="low">Baja</option>
-                    <option value="medium">Media</option>
-                    <option value="high">Alta</option>
-                    <option value="urgent">Urgente</option>
+            <div>
+                <label for="prioridad" class="block text-sm font-semibold text-gray-700 mb-1">Prioridad</label>
+                <select id="prioridad" name="prioridad"
+                    class="w-full border px-3 py-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    <option value="baja">Baja</option>
+                    <option value="media">Media</option>
+                    <option value="alta">Alta</option>
                 </select>
             </div>
 
-            <!-- Técnico Asignado -->
-            <div class="form-group">
-                <label for="technician" class="block text-sm font-semibold text-gray-700">Técnico Asignado</label>
-                <select id="technician" class="w-full border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                    <option value="">Asignar técnico...</option>
-                    <option value="1">Juan Técnico</option>
-                    <option value="2">Ana Técnico</option>
+            <!-- Estado -->
+            <div>
+                <label for="estado" class="block text-sm font-semibold text-gray-700 mb-1">Estado</label>
+                <select id="estado" name="estado"
+                    class="w-full border px-3 py-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    <option value="En revisión">En revisión</option>
+                    <option value="En reparación">En reparación</option>
+                    <option value="Reparado">Reparado</option>
+                    <option value="Descartado">Descartado</option>
                 </select>
             </div>
 
-            <!-- Descripción del Problema -->
-            <div class="form-group col-span-2">
-                <label for="problem" class="block text-sm font-semibold text-gray-700">Descripción del Problema</label>
-                <textarea id="problem" class="w-full border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" required></textarea>
+            <!-- Descripción del problema -->
+            <div class="md:col-span-2">
+                <label for="descripcion_problema" class="block text-sm font-semibold text-gray-700 mb-1">Descripción del Problema</label>
+                <textarea id="descripcion_problema" name="descripcion_problema" rows="4"
+                    class="w-full border px-3 py-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    placeholder="Describe el problema del equipo..."></textarea>
             </div>
 
-            <!-- Notas Adicionales -->
-            <div class="form-group col-span-2">
-                <label for="notes" class="block text-sm font-semibold text-gray-700">Notas Adicionales</label>
-                <textarea id="notes" class="w-full border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3"></textarea>
-            </div>
-
-            <!-- Form Actions -->
-            <div class="form-actions flex justify-between items-center col-span-2">
-                <button type="button" class="bg-gray-400 text-white px-6 py-2 rounded-md hover:bg-gray-600" onclick="history.back()">Cancelar</button>
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Crear Solicitud</button>
+            <!-- Botones -->
+            <div class="md:col-span-2 flex justify-end gap-3 pt-4">
+                <button type="button" onclick="history.back()"
+                    class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors border border-gray-300 text-sm font-medium">
+                    Cancelar
+                </button>
+                <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">
+                    Crear Solicitud
+                </button>
             </div>
         </form>
     </div>
