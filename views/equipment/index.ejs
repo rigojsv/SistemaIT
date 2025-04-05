@@ -8,15 +8,15 @@
 
     <div class="card bg-white p-6 rounded-lg shadow-md">
         <form method="GET" action="/equipment">
-            <div class="filters flex space-x-4 mb-6">
-                <input type="text" name="search" placeholder="Buscar equipo..." class="search-input block w-full p-3 border border-gray-300 rounded-md">
-                <select name="type" class="filter-select block w-48 p-3 border border-gray-300 rounded-md">
+            <div class="filters flex flex-wrap gap-4 mb-6">
+                <input type="text" name="search" placeholder="Buscar equipo..." class="search-input block w-full md:w-48 p-3 border border-gray-300 rounded-md">
+                <select name="type" class="filter-select block w-full md:w-48 p-3 border border-gray-300 rounded-md">
                     <option value="">Tipo de Equipo</option>
                     <option value="laptop">Laptop</option>
                     <option value="desktop">Desktop</option>
                     <option value="printer">Impresora</option>
                 </select>
-                <select name="status" class="filter-select block w-48 p-3 border border-gray-300 rounded-md">
+                <select name="status" class="filter-select block w-full md:w-48 p-3 border border-gray-300 rounded-md">
                     <option value="">Estado</option>
                     <option value="active">Activo</option>
                     <option value="repair">En Reparación</option>
@@ -50,11 +50,11 @@
                             <td class="px-4 py-2"><%= equipo.marca %></td>
                             <td class="px-4 py-2"><%= equipo.modelo %></td>
                             <td class="px-4 py-2"><%= equipo.serie %></td>
-                            <td class="px-4 py-2"><%= equipo.estado %></td>
-                            <td class="px-4 py-2"><%= equipo.usuario_asignado || 'N/A' %></td>
-                            <td class="px-4 py-2">
+                            <td class="px-4 py-2"><%= equipo.estado || 'Funcional' %></td>
+                            <td class="px-4 py-2 text-center"><%= equipo.usuario_asignado || 'N/A' %></td>
+                            <td class="px-4 py-2 text-center lg:text-left">
                                 <a href="/equipment/<%= equipo.id_equipo %>/edit" class="btn-icon text-blue-400 hover:text-blue-800">
-                                    <i class="fas fa-edit text-xl"></i>
+                                    <i class="fas fa-edit text-xl"></i> Editar
                                 </a>
                             </td>
                         </tr>

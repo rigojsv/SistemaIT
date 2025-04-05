@@ -4,7 +4,7 @@
     <form action="/repairs/<%= repair.id_reparacion %>/edit" method="POST" class="bg-white p-6 rounded shadow-md space-y-4">
         <div>
             <label class="block font-medium">Equipo</label>
-            <select name="id_equipo" class="w-full border px-4 py-2 rounded">
+            <select name="id_equipo" class="w-full border border-gray-300 px-4 py-2 rounded">
                 <% equipos.forEach(e => { %>
                     <option value="<%= e.id_equipo %>" <%= e.id_equipo === repair.id_equipo ? 'selected' : '' %>>
                         <%= e.tipo %> - <%= e.marca %> <%= e.modelo %> (<%= e.serie %>)
@@ -14,7 +14,7 @@
         </div>
         <div>
             <label class="block font-medium">Técnico</label>
-            <select name="id_tecnico" class="w-full border px-4 py-2 rounded">
+            <select name="id_tecnico" class="w-full px-4 border border-gray-300 py-2 rounded">
                 <% tecnicos.forEach(t => { %>
                     <option value="<%= t.id_usuario %>" <%= t.id_usuario === repair.id_tecnico ? 'selected' : '' %>>
                         <%= t.nombre %>
@@ -24,7 +24,7 @@
         </div>
         <div>
             <label class="block font-medium">Prioridad</label>
-            <select name="prioridad" class="w-full border px-4 py-2 rounded">
+            <select name="prioridad" class="w-full px-4 py-2 border border-gray-300 rounded">
                 <option value="baja" <%= repair.prioridad === 'baja' ? 'selected' : '' %>>Baja</option>
                 <option value="media" <%= repair.prioridad === 'media' ? 'selected' : '' %>>Media</option>
                 <option value="alta" <%= repair.prioridad === 'alta' ? 'selected' : '' %>>Alta</option>
@@ -32,7 +32,7 @@
         </div>
         <div>
             <label class="block font-medium">Estado</label>
-            <select name="estado" class="w-full border px-4 py-2 rounded">
+            <select name="estado" class="w-full border border-gray-300 px-4 py-2 rounded">
                 <option value="En revisión" <%= repair.estado === 'En revisión' ? 'selected' : '' %>>En revisión</option>
                 <option value="En reparación" <%= repair.estado === 'En reparación' ? 'selected' : '' %>>En reparación</option>
                 <option value="Reparado" <%= repair.estado === 'Reparado' ? 'selected' : '' %>>Reparado</option>
@@ -41,15 +41,15 @@
         </div>
         <div>
             <label class="block font-medium">Descripción del Problema</label>
-            <textarea name="descripcion_problema" class="w-full border px-4 py-2 rounded" rows="4"><%= repair.descripcion_problema %></textarea>
+            <textarea name="descripcion_problema" class="w-full border border-gray-300 px-4 py-2 rounded" rows="4"><%= repair.descripcion_problema %></textarea>
         </div>
 
 <div class="flex justify-between items-center">
-    <a href="/repairs" class="text-gray-600 hover:text-gray-800 underline">
-        <i class="fas fa-arrow-left"></i> Cancelar
+    <a href="/repairs" class=" bg-gray-400 px-4 py-2 rounded text-white hover:text-gray-800 ">
+        Cancelar
     </a>
-    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-        <i class="fas fa-save"></i> Actualizar Reparación
+    <button type="submit" class="bg-blue-600 text-white px-2 py-2 rounded hover:bg-blue-700 transition">
+     Actualizar Reparación
     </button>
 </div>
 
