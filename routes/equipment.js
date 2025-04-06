@@ -1,22 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/connection');
-const {ValidateSessionadmin } = require('../auth/auth');
+const {ValidateSessionadmin, validatesession } = require('../auth/auth');
 
 
-router.get('/', ValidateSessionadmin, (req, res) => {
+router.get('/', validatesession, (req, res) => {
     const { search, type, state } = req.query;
-
-    let query = 'SELECT * FROM equipos WHERE 1=1';
+    let query = '';
     const params = [];
 
+    if(req.user.rol == 'cliente'){
+    query = 'SELECT e.*, u.id_usuario AS usuario_id, u.nombre AS nombre_usuario, ultima_reparacion.estado AS estado_reparacion FROM equipos e LEFT JOIN LATERAL (SELECT a.* FROM asignaciones a WHERE a.id_equipo = e.id_equipo ORDER BY a.fecha_asignacion ASC LIMIT 1) primera_asignacion ON true LEFT JOIN usuarios u ON primera_asignacion.id_usuario = u.id_usuario LEFT JOIN LATERAL (SELECT r.estado FROM reparaciones r WHERE r.id_equipo = e.id_equipo ORDER BY r.id_reparacion DESC LIMIT 1) ultima_reparacion ON true WHERE u.id_usuario = ?';
+    let id_usuario = req.user.id_usuario;
+    params.push(id_usuario);
+    } else {
+        query = 'SELECT e.*, u.id_usuario AS usuario_id, u.nombre AS nombre_usuario, ultima_reparacion.estado AS estado_reparacion FROM equipos e LEFT JOIN LATERAL (SELECT a.* FROM asignaciones a WHERE a.id_equipo = e.id_equipo ORDER BY a.fecha_asignacion ASC LIMIT 1) primera_asignacion ON true LEFT JOIN usuarios u ON primera_asignacion.id_usuario = u.id_usuario LEFT JOIN LATERAL (SELECT r.estado FROM reparaciones r WHERE r.id_equipo = e.id_equipo ORDER BY r.id_reparacion DESC LIMIT 1) ultima_reparacion ON true WHERE 1=1';
+    }
+    
     if (search) {
-        query += ' AND (modelo LIKE ? OR serie LIKE ?)';
+        query += ' AND (e.modelo LIKE ? OR e.serie LIKE ?)';
         params.push(`%${search}%`, `%${search}%`);
     }
 
     if (type) {
-        query += ' AND tipo = ?';
+        query += ' AND e.tipo = ?';
         params.push(type);
     }
 
@@ -29,10 +36,9 @@ router.get('/', ValidateSessionadmin, (req, res) => {
         } else if (state === 'inactive') {
             estado = 'Inactivo';
         }
-        query += ' AND estado = ?';
+        query += ' AND e.estado = ?';
         params.push(estado);
     }
-
     db.query(query, params, (err, results) => {
         if (err) {
             console.error(err);

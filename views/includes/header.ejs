@@ -3,6 +3,7 @@
         <div class="p-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start">
+                    <% if(auth){ %>
                     <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
                         aria-controls="logo-sidebar" type="button"
                         class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none">
@@ -14,6 +15,7 @@
                             </path>
                         </svg>
                     </button>
+                    <% } %>
                     <a href="/" class="flex items-center gap-2 text-blue-600 text-xl font-bold">
                         <i class="fas fa-laptop-medical text-4xl"></i>
                         <span class="self-center text-xl font-bold sm:text-3xl whitespace-nowra">Sistema IT</span>
@@ -64,6 +66,7 @@
         </div>
     </nav>
 
+    <% if (auth) { %>
     <aside id="logo-sidebar"
         class="fixed top-0 left-0 z-40 w-64 h-screen pt-22 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 "
         aria-label="Sidebar">
@@ -81,18 +84,21 @@
                         <span class="flex-1 ms-3 whitespace-nowrap">Equipos</span>
                     </a>
                 </li>
+                <% if (user.rol === 'admin') { %>
                 <li>
                     <a href="/assignments" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                         <i class="fas fa-users text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Asignaciones</span>
                     </a>
                 </li>
+                <% } %>
                 <li>
                     <a href="/repairs" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                         <i class="fas fa-tools text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Reparaciones</span>
                     </a>
                 </li>
+                <% if (user.rol === 'admin') { %>
                 <li>
                     <a href="/reports" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                         <i class="fas fa-chart-bar text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
@@ -105,8 +111,10 @@
                         <span class="flex-1 ms-3 whitespace-nowrap">Registrar</span>
                     </a>
                 </li>
+                <% } %>
             </ul>
         </div>
     </aside>
+    <% } %>
 </header>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

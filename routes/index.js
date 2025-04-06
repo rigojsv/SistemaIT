@@ -41,7 +41,7 @@ router.post('/register', ValidateSessionadmin, (req, res) => {
             if (err) {
                 console.log(err);
                 req.flash('error', 'Error al registrar el usuario');
-                res.redirect('/register');
+                return res.redirect('/register');
             }
             req.flash('success', 'Usuario registrado correctamente');
             res.redirect('/register');
