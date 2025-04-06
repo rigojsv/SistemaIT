@@ -1,127 +1,177 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="
+https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js
+"></script>
+
 <div class="container mx-auto px-4 py-6 mt-14">
+
+    <div id="reporte">
     <h1 class="text-3xl font-semibold mb-6">Reportes y Estadísticas</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <div class="card bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold mb-4">Estado de Equipos</h3>
+        <div class="card bg-white p-6 rounded-lg shadow-md col-span-2">
+            <h3 class="text-xl font-semibold mb-4">Asignaciones por Usuario</h3>
             <div class="chart-container">
-                <canvas id="equipmentStatusChart"></canvas>
+                <canvas id="usuariosChart"></canvas>
             </div>
         </div>
 
-        <div class="card bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold mb-4">Reparaciones por Mes</h3>
+        <div class="card bg-white p-6 rounded-lg col-span-2 shadow-md">
+            <h3 class="text-xl font-semibold mb-4">Estados de Asignaciones</h3>
             <div class="chart-container">
-                <canvas id="repairsMonthlyChart"></canvas>
+                <canvas id="estadosChart"></canvas>
             </div>
         </div>
 
-        <div class="card bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold mb-4">Asignaciones por Departamento</h3>
+        <div class="card bg-white p-6 rounded-lg col-span-2 shadow-md">
+            <h3 class="text-xl font-semibold mb-4">Asignacion de equipos</h3>
             <div class="chart-container">
-                <canvas id="assignmentsDeptChart"></canvas>
+                <canvas id="equiposChart"></canvas>
             </div>
         </div>
 
-        <div class="card bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold mb-4">Tiempo Promedio de Reparación</h3>
+        <div class="card bg-white p-6 rounded-lg col-span-2 shadow-md">
+            <h3 class="text-xl font-semibold mb-4">Reporte General Combinado</h3>
             <div class="chart-container">
-                <canvas id="repairTimeChart"></canvas>
+                <canvas id="generalChart"></canvas>
             </div>
         </div>
     </div>
-
-    <div class="card bg-white p-6 rounded-lg shadow-md">
-        <h3 class="text-xl font-semibold mb-4">Generar Reportes</h3>
-        <div class="space-y-6">
-            <div class="report-option">
-                <h4 class="text-lg font-medium">Inventario de Equipos</h4>
-                <p class="text-gray-600">Reporte detallado del estado actual de todos los equipos</p>
-                <button class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Generar</button>
-            </div>
-
-            <div class="report-option">
-                <h4 class="text-lg font-medium">Historial de Reparaciones</h4>
-                <p class="text-gray-600">Registro completo de reparaciones por período</p>
-                <button class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Generar</button>
-            </div>
-
-            <div class="report-option">
-                <h4 class="text-lg font-medium">Asignaciones Actuales</h4>
-                <p class="text-gray-600">Lista de equipos asignados y sus usuarios</p>
-                <button class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Generar</button>
-            </div>
-        </div>
     </div>
+    <button id="btnPDF" class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:blue-indigo-600"> Descargar PDF</button>
 </div>
 
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Equipment Status Chart
-    new Chart(document.getElementById('equipmentStatusChart'), {
-        type: 'pie',
-        data: {
-            labels: ['Activos', 'En Reparación', 'Disponibles', 'Dados de Baja'],
-            datasets: [{
-                data: [65, 15, 12, 8],
-                backgroundColor: ['#2563eb', '#dc2626', '#16a34a', '#6b7280']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
+    const usuarios = JSON.parse('<%- JSON.stringify(usuarios) %>');
+    const estados = JSON.parse('<%- JSON.stringify(estados) %>');
+    const equipos = JSON.parse('<%- JSON.stringify(asignaciones) %>');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Gráfico 1: Usuarios
+        new Chart(document.getElementById('usuariosChart'), {
+            type: 'bar',
+            data: {
+                labels: usuarios.map(u => u.nombre),
+                datasets: [{
+                    label: 'Asignaciones',
+                    data: usuarios.map(u => u.total),
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Asignaciones por Usuario' }
+                }
+            }
+        });
 
-    // Monthly Repairs Chart
-    new Chart(document.getElementById('repairsMonthlyChart'), {
-        type: 'bar',
-        data: {
-            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Reparaciones',
-                data: [12, 19, 15, 8, 22, 14],
-                backgroundColor: '#2563eb'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
+        // Gráfico 2: Estados
+        new Chart(document.getElementById('estadosChart'), {
+            type: 'pie',
+            data: {
+                labels: estados.map(e => e.estado),
+                datasets: [{
+                    data: estados.map(e => e.total),
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8BC34A']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: { display: true, text: 'Distribución por Estado de Asignación' }
+                }
+            }
+        });
 
-    // Assignments by Department Chart
-    new Chart(document.getElementById('assignmentsDeptChart'), {
-        type: 'doughnut',
-        data: {
-            labels: ['IT', 'RRHH', 'Finanzas', 'Ventas', 'Operaciones'],
-            datasets: [{
-                data: [25, 15, 20, 18, 22],
-                backgroundColor: ['#2563eb', '#16a34a', '#dc2626', '#f59e0b', '#6366f1']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
+        // Gráfico 3: Equipos
+        new Chart(document.getElementById('equiposChart'), {
+            type: 'doughnut',
+            data: {
+                labels: equipos.map(e => e.estado),
+                datasets: [{
+                    data: equipos.map(e => e.total),
+                    backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#AB47BC']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: { display: true, text: 'Asignacion de equipos' }
+                }
+            }
+        });
 
-    // Average Repair Time Chart
-    new Chart(document.getElementById('repairTimeChart'), {
-        type: 'line',
-        data: {
-            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Días promedio',
-                data: [3.5, 4.2, 3.8, 3.2, 3.9, 3.5],
-                borderColor: '#2563eb',
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
+        // Gráfico 4: Combinado
+        new Chart(document.getElementById('generalChart'), {
+            type: 'bar',
+            data: {
+                labels: [
+                    ...usuarios.map(u => 'U: ' + u.nombre),
+                    ...estados.map(e => 'E: ' + e.estado),
+                    ...equipos.map(eq => 'EQ: ' + eq.estado)
+                ],
+                datasets: [{
+                    label: 'Total',
+                    data: [
+                        ...usuarios.map(u => u.total),
+                        ...estados.map(e => e.total),
+                        ...equipos.map(eq => eq.total)
+                    ],
+                    backgroundColor: [
+                        ...usuarios.map(() => 'rgba(75, 192, 192, 0.6)'),
+                        ...estados.map(() => 'rgba(255, 99, 132, 0.6)'),
+                        ...equipos.map(() => 'rgba(255, 206, 86, 0.6)')
+                    ],
+                    borderColor: [
+                        ...usuarios.map(() => 'rgba(75, 192, 192, 1)'),
+                        ...estados.map(() => 'rgba(255, 99, 132, 1)'),
+                        ...equipos.map(() => 'rgba(255, 206, 86, 1)')
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Reporte General: Usuarios, Estados y Equipos' }
+                }
+            }
+        });
+        // Botón para exportar todo como PDF
+        document.getElementById('btnPDF').addEventListener('click', function () {
+            // Usamos html2canvas para capturar el div del reporte
+            html2canvas(document.getElementById('reporte')).then(function (canvas) {
+                // Obtenemos las dimensiones del canvas y calculamos la relación de aspecto
+                const width = canvas.width;
+                const height = canvas.height;
+                const ratio = width / height;
+    
+                // Creamos un PDF con jsPDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF();
+    
+                // Ajustamos las dimensiones del PDF para que mantenga la relación de aspecto
+                const pageWidth = pdf.internal.pageSize.width;
+                const pageHeight = pdf.internal.pageSize.height;
+                const scale = pageWidth / width; // Escala según el ancho de la página
+    
+                // Calculamos el alto manteniendo la relación de aspecto
+                const newHeight = height * scale;
+    
+                // Añadimos la imagen del canvas al PDF, ajustando las dimensiones
+                pdf.addImage(canvas.toDataURL(), 'PNG', 10, 10, pageWidth - 20, newHeight);
+    
+                // Generamos el PDF y lo descargamos
+                pdf.save('reporte.pdf');
+            });
+        });
+        
     });
-});
+    
+    
 </script>

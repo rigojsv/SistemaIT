@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 require('dotenv').config();
+const html2canvas = require('html2canvas-pro');
 
 
 
