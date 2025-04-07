@@ -11,7 +11,7 @@
 <body class="bg-gray-100 text-gray-800 font-sans">
     <%- include('../includes/header') %>
 
-    <main class="p-4 sm:ml-64">
+    <main <% if(auth){%> class="p-4 sm:ml-64" <% } %>>
         <%- body %>
     </main>
     <%- include('../includes/footer') %>

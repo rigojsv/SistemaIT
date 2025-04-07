@@ -9,7 +9,7 @@ function validatesession(req, res, next) {
 
 function ValidateSessionadmin(req, res, next) {
     if (req.isAuthenticated()) {
-        if(req.user.rol == 'admin'){
+        if(req.user.rol == 'admin' ){
         return next();
         }
     }

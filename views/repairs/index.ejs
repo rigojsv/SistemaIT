@@ -108,8 +108,7 @@
                             <td class="px-4 py-2"><%= r.tecnico %></td>
                             <td class="px-4 py-2 font-bold 
                                 <%= r.estado === 'En reparación' ? 'text-yellow-400' : 
-                                     r.estado === 'Reparado' || r.estado === 'Descartado' ? 'text-green-500' : 
-                                     'text-gray-400' %>">
+                                     r.estado === 'En revisión' ? 'text-gray-400': r.estado === 'Descartado' ? 'text-red-400' : 'text-green-400' %>">
                                 <%= r.estado %>
                             </td>
                             <td class="px-4 py-2"><%= r.fecha_ingreso.toISOString().split('T')[0] %></td>
