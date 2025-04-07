@@ -4,48 +4,37 @@
     </div>
 
     <div class="card bg-white p-6 rounded-lg shadow-md">
-        <form class="form-grid grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <form method="POST" action="/assignments" class="form-grid grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div class="form-group">
-                <label for="user" class="block text-sm font-medium text-gray-700">Usuario</label>
-                <select id="user" class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                <label for="cliente" class="block text-sm font-medium text-gray-700">Usuario</label>
+                <select id="cliente" name="id_cliente" class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" required>
                     <option value="">Seleccionar usuario...</option>
-                    <option value="1">María González</option>
-                    <option value="2">Carlos Ruiz</option>
-                    <option value="3">Juan Pérez</option>
+                    <% clientes.forEach(cliente => { %>
+                        <option value="<%= cliente.id_usuario %>"><%= cliente.nombre %></option>
+                    <% }) %>
                 </select>
+                
             </div>
 
             <div class="form-group">
-                <label for="department" class="block text-sm font-medium text-gray-700">Departamento</label>
-                <select id="department" class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" required>
-                    <option value="">Seleccionar departamento...</option>
-                    <option value="it">IT</option>
-                    <option value="hr">RRHH</option>
-                    <option value="finance">Finanzas</option>
-                    <option value="sales">Ventas</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="equipment" class="block text-sm font-medium text-gray-700">Equipo</label>
-                <select id="equipment" class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                <label for="equipo" class="block text-sm font-medium text-gray-700">Equipo</label>
+                <select id="equipo" name="id_equipo" class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" required>
                     <option value="">Seleccionar equipo...</option>
-                    <option value="1">Laptop HP EliteBook (SN123456)</option>
-                    <option value="2">Desktop Dell OptiPlex (SN789012)</option>
+                    <% equipos.forEach(equipo => { %>
+                        <option value="<%= equipo.id_equipo %>"><%= equipo.tipo %> - <%= equipo.marca %> <%= equipo.modelo %></option>
+                    <% }) %>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="assignmentDate" class="block text-sm font-medium text-gray-700">Fecha de Asignación</label>
-                <input type="date" id="assignmentDate" class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                <label for="fecha_asignacion" class="block text-sm font-medium text-gray-700">Fecha de Asignación</label>
+                <input type="date" id="fecha_asignacion" name="fecha_asignacion" class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" required>
             </div>
 
             <div class="form-group col-span-2">
-                <label for="notes" class="block text-sm font-medium text-gray-700">Notas de Asignación</label>
-                <textarea id="notes" class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" rows="3"></textarea>
+                <label for="notas" class="block text-sm font-medium text-gray-700">Notas de Asignación</label>
+                <textarea id="notas" name="notas" class="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" rows="3"></textarea>
             </div>
-
-
 
             <div class="form-actions flex justify-between items-center mt-6 col-span-2">
                 <button type="button" class="btn btn-secondary bg-gray-400 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600" onclick="history.back()">Cancelar</button>
