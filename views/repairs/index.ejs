@@ -1,0 +1,128 @@
+
+<div class="container mx-auto px-4 py-6 mt-14 min-h-screen">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-semibold">Gestión de Reparaciones</h1>
+        <a href="/repairs/new" class="bg-blue-600 text-center text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+            <i class="fas fa-plus"></i> Nueva Reparación
+        </a>
+    </div>
+
+    <% if (messages.error && messages.error.length> 0) { %>
+        <% messages.error.forEach(function(message) { %>
+            <div id="alert-border-2" class="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50"
+                role="alert">
+                <i class="fa-solid fa-circle-info"></i>
+                <div class="ms-3 text-sm font-medium">
+                    <%= message %>
+                </div>
+                <button type="button"
+                    class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8"
+                    data-dismiss-target="#alert-border-2" aria-label="Close">
+                    <span class="sr-only">Dismiss</span>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <% }) %>
+                <% } else if (messages.success && messages.success.length> 0) { %>
+                    <% messages.success.forEach(function(message) { %>
+                        <div id="alert-border-3"
+                            class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50"
+                            role="alert">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <div class="ms-3 text-sm font-medium">
+                                <%= message %>
+                            </div>
+                            <button type="button"
+                                class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8"
+                                data-dismiss-target="#alert-border-3" aria-label="Close">
+                                <span class="sr-only">Dismiss</span>
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <% }) %>
+                            <% } %>
+
+    <!-- Status Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white p-6 rounded-lg shadow flex flex-col items-center">
+            <h3 class="text-xl font-semibold mb-4">Pendientes</h3>
+            <div class="text-3xl font-bold text-gray-800"><%= estadoContador.pendientes %></div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow flex flex-col items-center">
+            <h3 class="text-xl font-semibold mb-4">En Proceso</h3>
+            <div class="text-3xl font-bold text-gray-800"><%= estadoContador.enProceso %></div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow flex flex-col items-center">
+            <h3 class="text-xl font-semibold mb-4">Completadas</h3>
+            <div class="text-3xl font-bold text-gray-800"><%= estadoContador.completadas %></div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <form>
+    <div class="bg-white p-4 rounded-lg shadow mb-6">
+        <div class="flex flex-wrap gap-4 mb-6">
+            <input type="text" placeholder="Buscar reparación..." class="w-full md:w-48 border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select class="w-full md:w-48 border px-4 py-2 border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Estado</option>
+                <option value="En revisión">Pendiente</option>
+                <option value="En reparación">En Proceso</option>
+                <option value="Reparado">Reparado</option>
+                <option value="Descartado">Descartado</option>
+            </select>
+            <select class="w-full md:w-48 border px-4 py-2 rounded-md border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Técnico</option>
+                <% tecnicos.forEach(t => { %>
+                    <option value="<%= t.id_usuario %>"><%= t.nombre %></option>
+                <% }) %>
+            </select>
+            <button type="submit" class="btn btn-primary bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                Filtrar
+            </button>
+        </div>
+
+    </div>
+    </form>
+
+    <!-- Repairs Table -->
+    <div class="bg-white p-4 rounded-lg shadow">
+        <div class="overflow-x-auto rounded-sm">
+            <table class="w-full table-auto border-collapse ">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-gray-800 font-semibold">ID</th>
+                        <th class="px-4 py-2 text-left text-gray-800 font-semibold">Equipo</th>
+                        <th class="px-4 py-2 text-left text-gray-800 font-semibold">Problema</th>
+                        <th class="px-4 py-2 text-left text-gray-800 font-semibold">Técnico</th>
+                        <th class="px-4 py-2 text-left text-gray-800 font-semibold">Estado</th>
+                        <th class="px-4 py-2 text-left text-gray-800 font-semibold">Fecha Inicio</th>
+                        <th class="px-4 py-2 text-left text-gray-800 font-semibold">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% repairs.forEach(r => { %>
+                        <tr class="border-b border-gray-200">
+                            <td class="px-4 py-2">REP<%= r.id_reparacion.toString().padStart(3, '0') %></td>
+                            <td class="px-4 py-2"><%= r.equipo %> <%= r.marca %> <%= r.modelo %></td>
+                            <td class="px-4 py-2"><%= r.descripcion_problema %></td>
+                            <td class="px-4 py-2"><%= r.tecnico %></td>
+                            <td class="px-4 py-2 font-bold 
+                                <%= r.estado === 'En reparación' ? 'text-yellow-400' : 
+                                     r.estado === 'En revisión' ? 'text-gray-400': r.estado === 'Descartado' ? 'text-red-400' : 'text-green-400' %>">
+                                <%= r.estado %>
+                            </td>
+                            <td class="px-4 py-2"><%= r.fecha_ingreso.toISOString().split('T')[0] %></td>
+                            <td class="px-4 py-2 text-center lg:text-left">
+                                <a href="/repairs/<%= r.id_reparacion %>/edit" class="text-blue-400 hover:text-blue-800">
+                                    <i class="fas fa-edit text-xl"></i> Editar
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

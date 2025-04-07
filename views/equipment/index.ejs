@@ -1,0 +1,109 @@
+<div class="container mx-auto px-4 py-6 mt-14 min-h-screen">
+    <div class="page-header flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-semibold">Gestión de Equipos</h1>
+        <% if(user.rol === 'admin') { %>
+        <a href="/equipment/new" class="btn btn-primary flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            <i class="fas fa-plus mr-2"></i> Nuevo Equipo
+        </a>
+        <% } %>
+    </div>
+
+    <% if (messages.error && messages.error.length> 0) { %>
+        <% messages.error.forEach(function(message) { %>
+            <div id="alert-border-2" class="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50"
+                role="alert">
+                <i class="fa-solid fa-circle-info"></i>
+                <div class="ms-3 text-sm font-medium">
+                    <%= message %>
+                </div>
+                <button type="button"
+                    class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8"
+                    data-dismiss-target="#alert-border-2" aria-label="Close">
+                    <span class="sr-only">Dismiss</span>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <% }) %>
+                <% } else if (messages.success && messages.success.length> 0) { %>
+                    <% messages.success.forEach(function(message) { %>
+                        <div id="alert-border-3"
+                            class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50"
+                            role="alert">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <div class="ms-3 text-sm font-medium">
+                                <%= message %>
+                            </div>
+                            <button type="button"
+                                class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8"
+                                data-dismiss-target="#alert-border-3" aria-label="Close">
+                                <span class="sr-only">Dismiss</span>
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <% }) %>
+                            <% } %>
+
+    <div class="card bg-white p-6 rounded-lg shadow-md">
+        <form method="GET" action="/equipment">
+            <div class="filters flex flex-wrap gap-4 mb-6">
+                <input type="text" name="search" placeholder="Buscar equipo..." class="search-input block w-full md:w-48 p-3 border border-gray-300 rounded-md">
+                <select name="type" class="filter-select block w-full md:w-48 p-3 border border-gray-300 rounded-md">
+                    <option value="">Tipo de Equipo</option>
+                    <option value="laptop">Laptop</option>
+                    <option value="desktop">Desktop</option>
+                    <option value="impresora">Impresora</option>
+                    <option value="monitor">Monitor</option>
+                </select>
+                <select name="status" class="filter-select block w-full md:w-48 p-3 border border-gray-300 rounded-md">
+                    <option value="">Estado</option>
+                    <option value="active">Activo</option>
+                    <option value="repair">En Reparación</option>
+                    <option value="inactive">Inactivo</option>
+                </select>
+                <button type="submit" class="btn btn-primary bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                    Filtrar
+                </button>
+            </div>
+        </form>
+
+        <div class="table-container overflow-x-auto rounded-sm">
+            <table class="min-w-full table-auto text-sm">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left">ID</th>
+                        <th class="px-4 py-2 text-left">Tipo</th>
+                        <th class="px-4 py-2 text-left">Marca</th>
+                        <th class="px-4 py-2 text-left">Modelo</th>
+                        <th class="px-4 py-2 text-left">Serial</th>
+                        <th class="px-4 py-2 text-left">Estado</th>
+                        <th class="px-4 py-2 text-left">Usuario Asignado</th>
+                        <% if (user.rol === 'admin') { %>
+                        <th class="px-4 py-2 text-left">Acciones</th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% equipos.forEach((equipo) => { %>
+                        <tr class="border-b border-gray-200">
+                            <td class="px-4 py-2"><%= equipo.id_equipo %></td>
+                            <td class="px-4 py-2"><%= equipo.tipo %></td>
+                            <td class="px-4 py-2"><%= equipo.marca %></td>
+                            <td class="px-4 py-2"><%= equipo.modelo %></td>
+                            <td class="px-4 py-2"><%= equipo.serie %></td>
+                            <td class="px-4 py-2 font-bold <%= equipo.estado_reparacion === 'En reparación' ? 'text-yellow-400' : equipo.estado_reparacion === 'En revisión' ? 'text-gray-400' : equipo.estado_reparacion === 'Descartado' ? 'text-red-400' : 'text-green-400' %>">
+                                <%= equipo.estado_reparacion || 'Funcional' %></td>
+                            <td class="px-4 py-2"><%= equipo.nombre_usuario || 'N/A' %></td>
+                            <% if(user.rol === 'admin') { %>
+                            <td class="px-4 py-2 text-center lg:text-left">
+                                <a href="/equipment/<%= equipo.id_equipo %>/edit" class="btn-icon text-blue-400 hover:text-blue-800">
+                                    <i class="fas fa-edit text-xl"></i> Editar
+                                </a>
+                            </td>
+                            <%}%>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

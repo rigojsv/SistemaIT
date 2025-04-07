@@ -1,0 +1,79 @@
+<div class="container mx-auto px-4 py-6 mt-14">
+    <div class="page-header mb-6">
+        <h1 class="text-3xl font-semibold text-gray-800">Editar Equipo</h1>
+    </div>
+
+    <% if (messages.error && messages.error.length> 0) { %>
+        <% messages.error.forEach(function(message) { %>
+            <div id="alert-border-2" class="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50"
+                role="alert">
+                <i class="fa-solid fa-circle-info"></i>
+                <div class="ms-3 text-sm font-medium">
+                    <%= message %>
+                </div>
+                <button type="button"
+                    class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8"
+                    data-dismiss-target="#alert-border-2" aria-label="Close">
+                    <span class="sr-only">Dismiss</span>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <% }) %>
+                <% } else if (messages.success && messages.success.length> 0) { %>
+                    <% messages.success.forEach(function(message) { %>
+                        <div id="alert-border-3"
+                            class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50"
+                            role="alert">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <div class="ms-3 text-sm font-medium">
+                                <%= message %>
+                            </div>
+                            <button type="button"
+                                class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8"
+                                data-dismiss-target="#alert-border-3" aria-label="Close">
+                                <span class="sr-only">Dismiss</span>
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <% }) %>
+                            <% } %>
+
+    <div class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
+        <form action="/equipment/<%= equipo.id_equipo %>/edit" method="POST" class="space-y-6">
+            <div>
+                <label for="tipo" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Equipo</label>
+                <select id="tipo" name="tipo" class="w-full p-3 border border-gray-300 rounded-md">
+                    <option value="Laptop" <%= equipo.tipo === 'Laptop' ? 'selected' : '' %>>Laptop</option>
+                    <option value="Desktop" <%= equipo.tipo === 'Desktop' ? 'selected' : '' %>>Desktop</option>
+                    <option value="Impresora" <%= equipo.tipo === 'Impresora' ? 'selected' : '' %>>Impresora</option>
+                    <option value="Monitor" <%= equipo.tipo === 'Monitor' ? 'selected' : '' %>>Monitor</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="marca" class="block text-sm font-medium text-gray-700 mb-1">Marca</label>
+                <input type="text" id="marca" name="marca" value="<%= equipo.marca %>" class="w-full p-3 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div>
+                <label for="modelo" class="block text-sm font-medium text-gray-700 mb-1">Modelo</label>
+                <input type="text" id="modelo" name="modelo" value="<%= equipo.modelo %>" class="w-full p-3 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div>
+                <label for="serie" class="block text-sm font-medium text-gray-700 mb-1">Número de Serie</label>
+                <input type="text" id="serie" name="serie" value="<%= equipo.serie %>" class="w-full p-3 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div>
+                <label for="fecha_adquisicion" class="block text-sm font-medium text-gray-700 mb-1">Fecha de Adquisición</label>
+                <input type="date" id="fecha_adquisicion" name="fecha_adquisicion" value="<%= equipo.fecha_adquisicion.toISOString().split('T')[0] %>" class="w-full p-3 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div class="flex justify-end space-x-4">
+                <a href="/equipment" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">Cancelar</a>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

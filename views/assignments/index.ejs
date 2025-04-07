@@ -1,0 +1,65 @@
+<div class="container mx-auto px-4 py-6 mt-14 min-h-screen">
+    <div class="page-header flex justify-between items-center mb-6">
+      <h1 class="text-4xl font-semibold">Gestión de Asignaciones</h1>
+      <a href="/assignments/new"
+        class="btn btn-primary inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700">
+        <i class="fas fa-plus mr-2"></i> Nueva Asignación
+      </a>
+    </div>
+  
+    <div class="card bg-white p-6 rounded-lg shadow-md mb-6">
+      <form method="GET" action="/assignments">
+        <div class="filters flex flex-wrap gap-4 mb-6">
+          <input type="text" placeholder="Buscar por usuario o equipo..."
+            class="w-full md:w-auto p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" />
+          <button type="submit"
+            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            Filtrar
+          </button>
+        </div>
+      </form>
+  
+      <div class="table-container overflow-x-auto rounded-sm">
+        <table class="min-w-full table-auto text-sm border-collapse">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-4 py-2 text-left">ID</th>
+              <th class="px-4 py-2 text-left">Cliente</th>
+              <th class="px-4 py-2 text-left">Equipo</th>
+              <th class="px-4 py-2 text-left">Fecha Asignación</th>
+              <th class="px-4 py-2 text-left">Estado</th>
+              <th class="px-4 py-2 text-left">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% asignaciones.forEach(asig => { %>
+              <tr class="border-b border-gray-200">
+                <td class="px-4 py-2"><%= asig.id_asignacion %></td>
+                <td class="px-4 py-2"><%= asig.cliente %></td>
+                <td class="px-4 py-2">
+                  <% if (asig.tipo && asig.marca && asig.modelo) { %>
+                    <%= asig.tipo %> <%= asig.marca %> <%= asig.modelo %>
+                  <% } else { %>
+                    <span class="text-gray-400 italic">Equipo eliminado</span>
+                  <% } %>
+                </td>
+                <td class="px-4 py-2"><%= asig.fecha_asignacion.toISOString().split('T')[0] %></td>
+                <td class="px-4 py-2 font-bold <%= asig.fecha_devolucion ? 'text-gray-500' : 'text-green-500' %>">
+                  <%= asig.fecha_devolucion ? 'Devuelto' : 'Activo' %>
+                </td>
+                <td class="px-4 py-2">
+                  <form action="/assignments/<%= asig.id_asignacion %>/delete" method="POST"
+                    onsubmit="return confirm('¿Seguro que deseas eliminar esta asignación?');">
+                    <button type="submit" class="text-red-500 hover:text-red-700">
+                      <i class="fas fa-trash text-xl"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
