@@ -61,11 +61,10 @@ router.get('/new', ValidateSessionadmin, (req, res) => {
     res.render('equipment/new', {
         auth: req.isAuthenticated(),
         user: req.user,
-        mensages: req.flash()
+        messages: req.flash()
+        
     });
 });
-
-
 
 router.post('/new', ValidateSessionadmin, (req, res) => {
     const { type, brand, model, serial, purchaseDate } = req.body;
@@ -140,5 +139,21 @@ router.post('/:id_equipo/edit', ValidateSessionadmin, (req, res) => {
     });
 });
 
+router.get('/:id_equipo/delete', ValidateSessionadmin, (req, res) => {
+    const { id_equipo } = req.params;
+
+    const query = 'DELETE FROM equipos WHERE id_equipo = ?';
+    db.query(query, [id_equipo], (err) => {
+        if (err) {
+            console.error(err);
+            req.flash('error', 'Error al eliminar el equipo');
+            return res.redirect('/equipment');
+        }
+        req.flash('success', 'Equipo eliminado correctamente');
+        res.redirect('/equipment');
+    });
+}
+);
 
 module.exports = router;
+
