@@ -92,12 +92,14 @@
                     </a>
                 </li>
                 <% } %>
+                <% if (user.rol === 'admin'|| user.rol === 'tecnico') { %>
                 <li>
                     <a href="/repairs" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                         <i class="fas fa-tools text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap">Reparaciones</span>
                     </a>
                 </li>
+                <% } %>
                 <% if (user.rol === 'admin') { %>
                 <li>
                     <a href="/reports" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">

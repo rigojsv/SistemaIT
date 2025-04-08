@@ -4,7 +4,7 @@ const { validatesession, ValidateSessionadmin } = require('../auth/auth');
 const db = require('../db/connection');
 
 
-router.get('/', ValidateSessionadmin, async (req, res) => {
+router.get('/', validatesession, async (req, res) => {
     try {
         const con = db.promise();
         const [repairs] = await con.query(`
