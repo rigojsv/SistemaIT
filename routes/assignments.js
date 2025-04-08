@@ -6,19 +6,17 @@ const { ValidateSessionadmin } = require('../auth/auth');
 router.get('/', ValidateSessionadmin, (req, res) => {
     const query = `
         SELECT 
-            a.id_asignacion,
-            tec.nombre AS tecnico,
-            cli.nombre AS cliente,
-            e.tipo,
-            e.marca,
-            e.modelo,
-            a.fecha_asignacion,
-            a.fecha_devolucion
-        FROM asignaciones a
-        LEFT JOIN usuarios tec ON a.id_usuario = tec.id_usuario
-        LEFT JOIN usuarios cli ON a.id_cliente = cli.id_usuario
-        LEFT JOIN equipos e ON a.id_equipo = e.id_equipo
-        ORDER BY a.fecha_asignacion DESC
+    a.id_asignacion,
+    u.nombre AS cliente,
+    e.tipo,
+    e.marca,
+    e.modelo,
+    a.fecha_asignacion,
+    a.fecha_devolucion
+FROM asignaciones a
+LEFT JOIN usuarios u ON a.id_usuario = u.id_usuario
+LEFT JOIN equipos e ON a.id_equipo = e.id_equipo
+ORDER BY a.fecha_asignacion DESC;
     `;
 
     conn.query(query, (err, results) => {
@@ -72,8 +70,8 @@ router.post('/', ValidateSessionadmin, (req, res) => {
         }
 
         conn.query(
-            'INSERT INTO asignaciones (id_equipo, fecha_asignacion, notas, id_cliente, id_usuario) VALUES (?, ?, ?, ?, ?)',
-            [id_equipo, fecha_asignacion, notas, id_cliente, req.user.id_usuario],
+            'INSERT INTO asignaciones (id_equipo, fecha_asignacion, notas, id_usuario) VALUES (?, ?, ?, ?, ?)',
+            [id_equipo, fecha_asignacion, notas, id_cliente],
             (err, result) => {
                 if (err) {
                     return res.status(500).send('Error al procesar la asignación');
@@ -96,13 +94,13 @@ router.post('/:id/delete', ValidateSessionadmin, (req, res) => {
 
     conn.query('DELETE FROM asignaciones WHERE id_asignacion = ?', [id_asignacion], (err, result) => {
         if (err) {
-            console.error('Error en la eliminación:', err); 
+            console.error('Error en la eliminación:', err);
             return res.status(500).send('Error al eliminar la asignación');
         }
-    
+
         res.redirect('/assignments');
     });
-    
+
 });
 
 module.exports = router;

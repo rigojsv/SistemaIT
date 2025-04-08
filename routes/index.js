@@ -107,9 +107,34 @@ router.get('/signout', (req, res) => {
 });
 
 router.get('/dashboard', validatesession, (req, res) => {
-    res.render('dashboard/index', {
-        auth: req.isAuthenticated(),
-        user: req.user
+
+    conn.query('select marca, count(*) as total from equipos group by marca', (err, equipment) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error al obtener los datos de la base de datos');
+        }
+        conn.query("SELECT MONTHNAME(MIN(fecha_ingreso)) AS mes, COUNT(*) AS total_reparaciones FROM reparaciones WHERE estado != 'completado' AND YEAR(fecha_ingreso) = YEAR(CURRENT_DATE()) GROUP BY MONTH(fecha_ingreso) ORDER BY MONTH(fecha_ingreso);", (err, reparaciones) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Error al obtener los datos de la base de datos');
+            }
+            conn.query("SELECT MONTH(fecha_asignacion) AS mes,COUNT(*) AS total_asignaciones FROM asignaciones WHERE fecha_devolucion IS NULL AND YEAR(fecha_asignacion) = YEAR(CURRENT_DATE()) GROUP BY MONTH(fecha_asignacion) ORDER BY MONTH(fecha_asignacion)", (err, asignaciones) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).send('Error al obtener los datos de la base de datos');
+                }
+                conn.query("SELECT * FROM reparaciones order by id_reparacion DESC", (err, lastact) => {
+                    res.render('dashboard/index', {
+                        auth: req.isAuthenticated(),
+                        user: req.user,
+                        equipment,
+                        reparaciones,
+                        asignaciones,
+                        lastact
+                    });
+                });
+            });
+        });
     });
 });
 

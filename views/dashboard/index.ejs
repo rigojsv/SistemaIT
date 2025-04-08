@@ -1,76 +1,58 @@
-<div class="container mx-auto px-4 py-6 mt-14">
+<div class="container mx-auto px-4 py-6 mt-14 min-h-screen">
     <h1 class="text-4xl font-semibold mb-6">Dashboard</h1>
 
-    <div class="stats-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+    <div class="stats-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6 ">
         <!-- Total Equipos -->
-        <div class="card bg-white p-6 rounded-lg shadow-md">
+        <div class="card bg-white p-6 rounded-lg shadow-md col-span-2">
             <h3 class="text-xl font-semibold mb-4">Total Equipos</h3>
-            <div class="stat-value text-3xl font-bold mb-4">150</div>
+            <% let total = 0; equipment.forEach(e => {
+                total += e.total; 
+              }); %>
+            <div class="stat-value text-3xl font-bold mb-4"><%= total %>
+            </div>
             <div class="stat-chart h-40">
                 <canvas id="equipmentChart"></canvas>
             </div>
         </div>
 
         <!-- Reparaciones Activas -->
-        <div class="card bg-white p-6 rounded-lg shadow-md">
+        <div class="card bg-white p-6 rounded-lg shadow-md col-span-2">
             <h3 class="text-xl font-semibold mb-4">Reparaciones Activas</h3>
-            <div class="stat-value text-3xl font-bold mb-4">12</div>
+            <% let totalr = 0; reparaciones.forEach(r => {
+                totalr += r.total_reparaciones; 
+              }); %>
+            <div class="stat-value text-3xl font-bold mb-4"><%= totalr %></div>
             <div class="stat-chart h-40">
                 <canvas id="repairsChart"></canvas>
             </div>
         </div>
 
         <!-- Asignaciones -->
-        <div class="card bg-white p-6 rounded-lg shadow-md">
+        <div class="card bg-white p-6 rounded-lg shadow-md col-span-2">
             <h3 class="text-xl font-semibold mb-4">Asignaciones</h3>
-            <div class="stat-value text-3xl font-bold mb-4">125</div>
+            <% let totala = 0; asignaciones.forEach(a => {
+                totala += a.total_asignaciones; 
+              }); %>
+            <div class="stat-value text-3xl font-bold mb-4"><%= totala %></div>
             <div class="stat-chart h-40">
                 <canvas id="assignmentsChart"></canvas>
             </div>
         </div>
     </div>
-
-    <!-- Últimas Actividades -->
-    <div class="card bg-white p-6 rounded-lg shadow-md">
-        <h3 class="text-xl font-semibold mb-4">Últimas Actividades</h3>
-        <div class="table-container overflow-x-auto rounded-sm">
-            <table class="min-w-full table-auto text-sm">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-4 py-2 text-left">Fecha</th>
-                        <th class="px-4 py-2 text-left">Tipo</th>
-                        <th class="px-4 py-2 text-left">Descripción</th>
-                        <th class="px-4 py-2 text-left">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-b border-gray-200">
-                        <td class="px-4 py-2">2024-01-20</td>
-                        <td class="px-4 py-2">Reparación</td>
-                        <td class="px-4 py-2">Laptop HP - Cambio de disco duro</td>
-                        <td class="px-4 py-2 font-bold text-yellow-400">En proceso</td>
-                    </tr>
-                    <tr class="border-b border-gray-200">
-                        <td class="px-4 py-2">2024-01-19</td>
-                        <td class="px-4 py-2">Asignación</td>
-                        <td class="px-4 py-2">Desktop Dell - Usuario: Juan Pérez</td>
-                        <td class="px-4 py-2 font-bold text-green-400">Completado</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
 
 <script>
+const equipos = JSON.parse('<%- JSON.stringify(equipment) %>');
+const repair = JSON.parse('<%- JSON.stringify(reparaciones) %>');
+const asignment = JSON.parse('<%- JSON.stringify(asignaciones) %>');
 document.addEventListener('DOMContentLoaded', function() {
     // Equipment Status Chart (Doughnut)
     new Chart(document.getElementById('equipmentChart'), {
         type: 'doughnut',
         data: {
-            labels: ['En uso', 'En reparación', 'Disponible'],
+            labels: equipos.map(e => e.marca),
             datasets: [{
-                data: [70, 15, 15],
+                data: equipos.map(e => e.total),
                 backgroundColor: ['#2563eb', '#dc2626', '#16a34a']
             }]
         },
@@ -84,10 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(document.getElementById('repairsChart'), {
         type: 'bar',
         data: {
-            labels: ['Ene', 'Feb', 'Mar', 'Abr'],
+            labels: repair.map(r => r.mes),
             datasets: [{
                 label: 'Reparaciones',
-                data: [12, 19, 15, 12],
+                data: repair.map(r => r.total_reparaciones),
                 backgroundColor: '#2563eb'
             }]
         },
@@ -101,10 +83,10 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(document.getElementById('assignmentsChart'), {
         type: 'line',
         data: {
-            labels: ['Ene', 'Feb', 'Mar', 'Abr'],
+            labels: asignment.map(a=> a.mes),
             datasets: [{
                 label: 'Asignaciones',
-                data: [100, 110, 120, 125],
+                data: asignment.map(a => a.total_asignaciones),
                 borderColor: '#2563eb',
                 tension: 0.4
             }]

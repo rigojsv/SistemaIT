@@ -11,7 +11,7 @@ router.get('/', ValidateSessionadmin, (req, res) => {
             return res.send('Error al obtener los reportes');    
         }
 
-        conn.query('select estado, count(distinct id_equipo) as total from reparaciones group by estado;', (err, estados) => {
+        conn.query('SELECT estado, COUNT(DISTINCT r.id_equipo) AS total FROM (SELECT r.id_equipo, r.estado FROM reparaciones r INNER JOIN (SELECT id_equipo, MAX(fecha_ingreso) AS ultima_fecha FROM reparaciones GROUP BY id_equipo) subquery ON r.id_equipo = subquery.id_equipo AND r.fecha_ingreso = subquery.ultima_fecha) r GROUP BY estado;', (err, estados) => {
             if(err){
                 console.error(err);
                 return res.send('Error al obtener los reportes');    
