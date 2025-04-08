@@ -96,7 +96,10 @@
                             <% if(user.rol === 'admin') { %>
                             <td class="px-4 py-2 text-center lg:text-left">
                                 <a href="/equipment/<%= equipo.id_equipo %>/edit" class="btn-icon text-blue-400 hover:text-blue-800">
-                                    <i class="fas fa-edit text-xl"></i> Editar
+                                    <i class="fas fa-edit text-xl"></i>Editar
+                                </a>
+                                <a href="/equipment/<%= equipo.id_equipo %>/delete" class="btn-icon text-red-400 hover:text-red-800">
+                                    <i class="fas fa-trash text-xl"></i> 
                                 </a>
                             </td>
                             <%}%>
@@ -107,3 +110,4 @@
         </div>
     </div>
 </div>
+
